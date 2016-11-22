@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Apache Tomcat WebSocket Examples: Chat</title>
+    <style>
+        input#chat {
+        width: 410px
+    }
+
+    #console-container {
+        width: 400px;
+    }
+
+    #console {
+        border: 1px solid #CCCCCC;
+        border-right-color: #999999;
+        border-bottom-color: #999999;
+        height: 170px;
+        overflow-y: scroll;
+        padding: 5px;
+        width: 100%;
+    }
+
+    #console p {
+        padding: 0;
+        margin: 0;
+    }
+    </style>
+    <script src="/myjs.js" type="application/javascript"></script>
+</head>
+<body>
+<div class="noscript"><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websockets rely on
+    Javascript being enabled. Please enable
+    Javascript and reload this page!</h2></div>
+<div>
+    <p>
+        <input type="text" placeholder="type and press enter to chat" id="chat"/>
+    </p>
+    <div id="console-container">
+        <div id="console"/>
+    </div>
+</div>
+</body>
+</html>

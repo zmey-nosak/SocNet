@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/scripts/server.js"></script>
+    <script src="/scripts/FriendList.js"></script>
+    <script>
+        addEventListener("DOMContentLoaded", () => {
+            Server.getUsers()
+                    .then(users => new FriendList().addAll(users));
+        }, true);
+    </script>
+</head>
+<body>
+<table border="1">
+
+</table>
+<ol id="instancies">
+    <li></li>
+</ol>
+</body>
+</html>

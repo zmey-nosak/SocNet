@@ -1,0 +1,15 @@
+apply plugin: 'war'
+dependencies{
+    compile project(":jdbc")
+    compile project(":core")
+    compile 'org.apache.tomcat:tomcat-api:+'
+    compile 'org.apache.tomcat:tomcat-jsp-api:+'
+
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:+'
+    compile 'org.glassfish.jersey.media:jersey-media-moxy:+'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:+'
+    // WebSockets
+    compile 'org.apache.tomcat:tomcat-websocket-api:+'
+    compile  'javax.websocket:javax.websocket-api:+'
+}
