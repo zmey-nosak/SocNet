@@ -10,8 +10,8 @@
     </style>
 
     <script>
-        function showParameters(img,id,user) {
-            var oParams = {img: img, id: id, user:user};
+        function showParameters(img,id,fio) {
+            var oParams = {img: img, id: id, fio:fio};
             var oResult = window.showModalDialog("/dialogs/sendMessage.html", oParams, "dialogHeight:280px;dialogWidth:400px;scroll:no center=1");
 
             if (oResult != null) {
@@ -32,8 +32,8 @@
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
 
-<table border="1">
-    ${socnet:getList(requestScope["users"])};
+<table border="1" id="tab">
+   ${socnet:getList(requestScope["users"])};
 </table>
 
 </body>

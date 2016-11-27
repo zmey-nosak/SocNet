@@ -53,4 +53,15 @@ public class UserResource implements JsonRestfulWebResource {
             return noContent();
         }
     }
+
+    @GET
+    @Path("{id}/communications")
+    public Response getCommunications(@PathParam("id") int id) {
+        final Collection<model.UserCommunications> communications = userDao.getUserCommunications(id);
+        if (!communications.isEmpty()) {
+            return this.ok(communications);
+        } else {
+            return noContent();
+        }
+    }
 }

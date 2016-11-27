@@ -4,24 +4,37 @@
 
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
 
-    <TITLE>Новое сообщение</TITLE>
+    <TITLE>пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</TITLE>
+    <script src="/websocket.js"></script>
+
+
     <script>
-        var work=worker;
+
         function setup() {
+            /*        var work=worker;
+             var oParams = window.dialogArguments;
+             var a = document.getElementById("img");
+             a.src = "data:image/jpg;base64," + oParams.img;
+             var fieldNameElement = document.getElementById("field_name");
+             fieldNameElement.textContent = oParams.user;
+             */
             var oParams = window.dialogArguments;
             var a = document.getElementById("img");
             a.src = "data:image/jpg;base64," + oParams.img;
             var fieldNameElement = document.getElementById("field_name");
-            fieldNameElement.textContent = oParams.user;
+            fieldNameElement.textContent = oParams.fio;
+            new MyWebSocket("", "message", oParams.id + "");
         }
+        ;
 
-        function sendParams() {
-            work.port.postMessage("sss");
-        }
+    </script>
+
+    <script>
+        addEventListener("DOMContentLoaded", setup(), false);
     </script>
 
 </HEAD>
-<title>Новое сообщение</title>
+<title>пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</title>
 <BODY onload="setup();">
 
 <FORM>
@@ -30,12 +43,12 @@
     <div id="user">
         <div id="field_name">TEXT GOES HERE</div>
     </div>
-    <p><b>Введите сообщение:</b></p>
-    <p><textarea rows="10" cols="45" name="text"></textarea></p>
+    <p><b>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:</b></p>
+    <p><textarea rows="10" cols="45" name="text" id="message"></textarea></p>
 
     <P>
-        <INPUT TYPE="button" VALUE="ОК" ONCLICK="sendParams();">
-        <INPUT TYPE="button" VALUE="Отмена" ONCLICK="window.close();">
+        <INPUT TYPE="button" VALUE="Send" id="submit">
+        <INPUT TYPE="button" VALUE="Cancel" ONCLICK="window.close();">
     </P>
 
 </FORM>

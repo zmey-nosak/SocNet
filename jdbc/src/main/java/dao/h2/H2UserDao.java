@@ -205,4 +205,53 @@ public class H2UserDao implements UserDao {
         }
         return userInfo;
     }
+
+    @Override
+    @SneakyThrows
+    public boolean sendMessage(int user_id_from, int user_id_to, String message) {
+        boolean res = false;
+        try (Connection connection = connectionSupplier.get();
+             CallableStatement statement = connection.prepareCall("{ ? = CALL put_message(?,?,?)}");
+        ) {
+            statement.registerOutParameter(1, Types.BOOLEAN);
+            statement.setInt(2, user_id_from);
+            statement.setInt(3, user_id_to);
+            statement.setString(4, message);
+            statement.execute();
+            res = statement.getBoolean(1);
+        }
+        return res;
+    }
+
+
+    @SneakyThrows
+    public Collection<UserCommunications> getUserCommunications(int user_id) {
+        Collection<UserCommunications> communicationses = new HashSet<>();
+        try (Connection con = connectionSupplier.get();
+             PreparedStatement statement = con.prepareStatement("SELECT * FROM get_communications(?)")) {
+            // для PostgreSQL сначала нужно создать транзакцию (AutoCommit == false)...
+            con.setAutoCommit(false);
+            statement.setInt(1, (int) user_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    try (ResultSet rs1 = (ResultSet) resultSet.getObject(1)) {
+                        while (rs1.next()) {
+                            UserCommunications communications = new UserCommunications();
+                            communications.setUser_from(rs1.getInt("user_from"));
+                            communications.setF_name(rs1.getString("f_name"));
+                            communications.setI_name(rs1.getString("i_name"));
+                            communications.setMessage(rs1.getString("message"));
+                            communications.setActive(rs1.getInt("active"));
+                            communications.setCommunication_id(rs1.getInt("communication_id"));
+                            communications.setDate(rs1.getDate("date"));
+                            communications.setPhoto(rs1.getString("photo"));
+                            communicationses.add(communications);
+                        }
+                    }
+                    con.setAutoCommit(true);
+                }
+            }
+        }
+        return communicationses;
+    }
 }

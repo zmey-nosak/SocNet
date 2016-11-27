@@ -1,6 +1,7 @@
 package dao;
 
 import model.User;
+import model.UserCommunications;
 import model.UserInfo;
 
 import java.util.Collection;
@@ -22,4 +23,8 @@ public interface UserDao {
     Collection<User> getFriends(long user_id);
 
     User getUser(long user_id);
+
+    boolean sendMessage(int user_id_from, int user_id_to, String message);
+
+    Collection<UserCommunications> getUserCommunications(int user_id);
 }
