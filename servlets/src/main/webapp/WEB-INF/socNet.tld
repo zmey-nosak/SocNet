@@ -10,18 +10,18 @@
     <uri>http://SocNet.com</uri>
     <tag>
         <name>list</name>
-        <tag-class>tags.Users</tag-class>
+        <tag-class>tags.List</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>users</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
     <function>
         <name>getList</name>
-        <function-class>tags.Users</function-class>
-        <function-signature>java.lang.String userList(java.util.Collection)</function-signature>
+        <function-class>tags.List</function-class>
+        <function-signature>java.lang.String printList(tags.Printable)</function-signature>
     </function>
 </taglib>

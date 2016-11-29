@@ -53,14 +53,14 @@ class Server {
      * @param {string} id
      * @returns Promise<UserInfo>
      */
-    static getUserInfo() {
+    static getUserInfo(id) {
         return new Promise((resolve, reject) => this.getObjectAsync('users/' + id, resolve, reject));
     }
     /**
      * @param {string} id
      * @returns Promise<UserCommunications[]>
      */
-    static getUserCommunications() {
+    static getUserCommunications(id) {
         return new Promise((resolve, reject) => this.getObjectAsync('users/' + id+ '/communications', resolve, reject));
     }
 }

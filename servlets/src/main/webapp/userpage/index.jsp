@@ -25,11 +25,12 @@
                 <td width=5px></td>
             </tr>
             <tr>
-                <td><a class="A" href="/userlist/">Мои друзья</a></td>
+                <td><a class="A" href="/list/friends">Мои друзья</a></td>
                 <td width=5px></td>
             </tr>
             <tr>
-                <td><a class="A" href="/index.html">Сообщения</a></td>
+                <td><a class="A" href="/list/messages">Сообщения</a>
+                </td>
                 <td width=5px id="mess"></td>
             </tr>
             <tr>

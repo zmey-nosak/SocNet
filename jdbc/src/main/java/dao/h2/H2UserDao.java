@@ -1,20 +1,15 @@
 package dao.h2;
 
-import ch.qos.logback.core.db.dialect.PostgreSQLDialect;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import dao.UserDao;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import model.*;
-import org.postgresql.largeobject.LargeObject;
-import org.postgresql.largeobject.LargeObjectManager;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
-import java.time.*;
 import java.util.*;
-import java.util.Date;
 import java.util.function.Supplier;
 
 /**
@@ -225,8 +220,8 @@ public class H2UserDao implements UserDao {
 
 
     @SneakyThrows
-    public Collection<UserCommunications> getUserCommunications(int user_id) {
-        Collection<UserCommunications> communicationses = new HashSet<>();
+    public Collection<UserCommunication> getUserCommunications(int user_id) {
+        Collection<UserCommunication> communicationses = new HashSet<>();
         try (Connection con = connectionSupplier.get();
              PreparedStatement statement = con.prepareStatement("SELECT * FROM get_communications(?)")) {
             // для PostgreSQL сначала нужно создать транзакцию (AutoCommit == false)...
@@ -236,7 +231,7 @@ public class H2UserDao implements UserDao {
                 if (resultSet.next()) {
                     try (ResultSet rs1 = (ResultSet) resultSet.getObject(1)) {
                         while (rs1.next()) {
-                            UserCommunications communications = new UserCommunications();
+                            UserCommunication communications = new UserCommunication();
                             communications.setUser_from(rs1.getInt("user_from"));
                             communications.setF_name(rs1.getString("f_name"));
                             communications.setI_name(rs1.getString("i_name"));
@@ -244,7 +239,8 @@ public class H2UserDao implements UserDao {
                             communications.setActive(rs1.getInt("active"));
                             communications.setCommunication_id(rs1.getInt("communication_id"));
                             communications.setDate(rs1.getDate("date"));
-                            communications.setPhoto(rs1.getString("photo"));
+                            communications.setPhoto(Base64.encode(rs1.getBytes("photo")));
+                            communications.setOwnerPhoto(Base64.encode(rs1.getBytes("photo")));
                             communicationses.add(communications);
                         }
                     }

@@ -1,8 +1,8 @@
 package openapi;
 
-import controllers.User;
 import dao.UserDao;
 import listeners.Initializer;
+import model.UserCommunication;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -57,7 +57,7 @@ public class UserResource implements JsonRestfulWebResource {
     @GET
     @Path("{id}/communications")
     public Response getCommunications(@PathParam("id") int id) {
-        final Collection<model.UserCommunications> communications = userDao.getUserCommunications(id);
+        final Collection<UserCommunication> communications = userDao.getUserCommunications(id);
         if (!communications.isEmpty()) {
             return this.ok(communications);
         } else {
