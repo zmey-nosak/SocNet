@@ -3,8 +3,6 @@
 <html>
 <head>
     <title>Title</title>
-
-    <link rel="stylesheet" href="/main_style.css">
     <script>
         function showParameters(img, id, fio) {
             var oParams = {img: img, id: id, fio: fio};
@@ -42,7 +40,7 @@
                             <ul>
                                 <li><a href="/index.html">На главную</a></li>
                                 <li><a href="/list/friends">Друзья</a></li>
-                                <li><a href="/list/messages">Сообщения</a> <a color="red" href=#></a></li>
+                                <li><a href="/list/communications">Сообщения</a> <a color="red" href=#></a></li>
                                 <li><a href="/index.html">Сообщество</a></li>
 
                             </ul>

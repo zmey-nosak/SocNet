@@ -1,0 +1,65 @@
+body {
+    background: white;
+    color: #000000;
+    font-family: Trebuchet MS, Arial, Times New Roman;
+    font-size: 12px;
+}
+
+#container {
+    background: white;
+    margin: 0px;
+    width: 300px;
+    margin-bottom:20px;
+}
+
+#header {
+    background: #838283;
+    height: 200px;
+    width: 900px;
+}
+
+#head {
+    width: 260px;
+    height: 15px;
+    margin-left:40px;
+    margin-right:600px;
+    margin-bottom:0px;
+    font-size:small;
+    color: blue;
+    background-color:  transparent;
+
+}
+
+#mainImage {
+    float: left;
+    width: 40px;
+    height:50px;
+}
+
+#message {
+    background: #FFFFFF;
+    margin-left:35px;
+    margin-top:5px;
+    padding: 5px; /* Поля */
+    font-size:small;
+    color:black;
+    background-color: transparent;
+}
+#container:hover  {
+    background: #f0f0f0; /* Цвет фона */
+    white-space: normal; /* Обычный перенос текста */
+}
+
+#childImage {
+    background: #333333;
+    float: left;
+    width: 20px;
+    height:25px;
+    margin-top:5px;
+    margin-left:2px;
+}
+#footer {
+    background: #838283;
+    height: 180px;
+    width: 900px;
+}

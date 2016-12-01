@@ -2,6 +2,7 @@ package controllers;
 
 import dao.UserDao;
 import tags.CommunicationList;
+import tags.MessageList;
 import tags.Printable;
 import tags.UsersList;
 
@@ -30,13 +31,21 @@ public class ListServlet extends HttpServlet {
             if (req.getRequestURI().contains("/list/friends")) {
                 req.setAttribute("list", new UsersList(userDao.getAllUsers()));
                 req.setAttribute("css", "<link rel=\"stylesheet\" href=\"/lists.css\">");
-            } else if (req.getRequestURI().contains("/list/messages")) {
+            } else if (req.getRequestURI().contains("/list/communications")) {
                 req.setAttribute("list", new CommunicationList(userDao.getUserCommunications((int) user_id)));
                 req.setAttribute("css", "<link rel=\"stylesheet\" href=\"/lists.css\">");
+            } else if (req.getRequestURI().contains("/list/messages")) {
+                int communication_id;
+                if (req.getParameterMap().containsKey("communication_id")) {
+                    communication_id = Integer.parseInt(req.getParameter("communication_id"));
+                    req.setAttribute("list", new MessageList(userDao.getUserMessages((int) user_id, communication_id)));
+                    req.setAttribute("css", "<link rel=\"stylesheet\" href=\"/list_messages.css\">");
+                }
             }
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/lists/list.jsp");
             requestDispatcher.forward(req, resp);
         }
+
     }
 
     @Override

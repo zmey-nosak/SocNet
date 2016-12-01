@@ -3,6 +3,7 @@ package dao;
 import model.User;
 import model.UserCommunication;
 import model.UserInfo;
+import model.UserMessage;
 
 import java.util.Collection;
 
@@ -27,4 +28,6 @@ public interface UserDao {
     boolean sendMessage(int user_id_from, int user_id_to, String message);
 
     Collection<UserCommunication> getUserCommunications(int user_id);
+
+    Collection<UserMessage> getUserMessages(int user_id, int communication_id);
 }

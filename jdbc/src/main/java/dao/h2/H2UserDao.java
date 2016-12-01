@@ -10,8 +10,6 @@ import org.joda.time.DateTime;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -253,5 +251,37 @@ public class H2UserDao implements UserDao {
             }
         }
         return communicationses;
+    }
+
+    @Override
+    @SneakyThrows
+    public Collection<UserMessage> getUserMessages(int user_id, int communication_id) {
+        Collection<UserMessage> messages = new HashSet<>();
+        try (Connection con = connectionSupplier.get();
+             PreparedStatement statement = con.prepareStatement("SELECT * FROM get_messages(?,?)")) {
+            // для PostgreSQL сначала нужно создать транзакцию (AutoCommit == false)...
+            con.setAutoCommit(false);
+            statement.setInt(1, (int) user_id);
+            statement.setInt(2, (int) communication_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    try (ResultSet rs1 = (ResultSet) resultSet.getObject(1)) {
+                        while (rs1.next()) {
+                            UserMessage message = new UserMessage();
+                            message.setUser_id(rs1.getInt("user_id"));
+                            message.setF_name(rs1.getString("f_name"));
+                            message.setI_name(rs1.getString("i_name"));
+                            message.setMessage(rs1.getString("message"));
+                            message.setActive(rs1.getInt("active"));
+                            message.setDate(new DateTime(rs1.getTimestamp("date").getTime()));
+                            message.setPhoto(Base64.encode(rs1.getBytes("photo")));
+                            messages.add(message);
+                        }
+                    }
+                    con.setAutoCommit(true);
+                }
+            }
+        }
+        return messages;
     }
 }

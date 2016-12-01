@@ -65,7 +65,7 @@
                             <ul>
                                 <li><a href="/index.html">На главную</a></li>
                                 <li><a href="/list/friends">Друзья</a></li>
-                                <li><a href="/list/messages">Сообщения</a> <a id="mess" color="red" href=#></a></li>
+                                <li><a href="/list/communications">Сообщения</a> <a id="mess" color="red" href=#></a></li>
                                 <li><a href="/index.html">Сообщество</a></li>
 
                             </ul>

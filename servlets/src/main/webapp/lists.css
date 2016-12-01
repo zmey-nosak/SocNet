@@ -1,5 +1,5 @@
 body {
-    background: #f3f2f3;
+    background: white;
     color: #000000;
     font-family: Trebuchet MS, Arial, Times New Roman;
     font-size: 12px;
@@ -7,7 +7,7 @@ body {
 
 #container {
     background: #FFFFFF;
-    margin: 0px left;
+    margin: 0px;
     width: 300px;
     height: 50px;
     border: 2px #000000 solid;
@@ -52,9 +52,8 @@ body {
 
 }
 
-.#message:hover {
+#message:hover {
     background: #f0f0f0; /* Цвет фона */
-    white-space: normal; /* Обычный перенос текста */
 }
 
 #childImage {
