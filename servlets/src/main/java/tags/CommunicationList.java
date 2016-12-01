@@ -4,6 +4,8 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import model.User;
 import model.UserCommunication;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -22,22 +24,23 @@ public class CommunicationList implements Printable {
 
     public String getString() {
         StringBuffer out = new StringBuffer();
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
         for (UserCommunication communication : list)
-            out.append("<tr class=tr><td width=\"60px\" height=\"60px\" valign=top>")
-                    .append("<image src=data:image/jpg;base64,")
+            out.append("<div id=container>")
+                    .append("<div id=mainImage><image src=data:image/jpg;base64,")
                     .append(communication.getPhoto())
-                    .append(" width=\"100px\" height=\"150px\"/>")
-                    .append("</td>")
-                    .append("<td cellpadding=0 cellspacing=0  width=\"500px\" valign=\"top\">")
-                    .append("<div> " + communication.getF_name() + " " + communication.getI_name())
-                    .append("</div>")
-                    .append("<div margin:\"0px\" float=left><image src=data:image/jpg;base64,")
+                    .append(" width=\"40px\" height=\"50px\"></div>")
+                    .append("<div id=head>")
+                    .append(communication.getF_name() + " " + communication.getI_name()+" (")
+                    .append(formatter.print(communication.getDate())).append(")</div>")
+                    .append("<div id=childImage>")
+                    .append("<image src=data:image/jpg;base64,")
                     .append(communication.getOwnerPhoto())
-                    .append(" width=\"45px\" height=\"70px\" />")
-                    .append("</div>")
-                    .append("<div> " + communication.getMessage() + "</div>")
-                    .append("</td>")
-                    .append("</tr>");
+                    .append(" width=\"20px\" height=\"25px\"></div>")
+                    .append("<div id=message><a href=#>")
+                    .append(communication.getMessage())
+                    .append("</a></div>")
+                    .append("</div>");
         return out.toString();
     }
 }

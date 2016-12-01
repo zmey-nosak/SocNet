@@ -24,4 +24,10 @@
         <function-class>tags.List</function-class>
         <function-signature>java.lang.String printList(tags.Printable)</function-signature>
     </function>
+
+    <function>
+        <name>getCSS</name>
+        <function-class>tags.List</function-class>
+        <function-signature>java.lang.String getCSS(java.lang.Object)</function-signature>
+    </function>
 </taglib>

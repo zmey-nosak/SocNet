@@ -5,10 +5,13 @@ import dao.UserDao;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import model.*;
+import org.joda.time.DateTime;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -221,6 +224,7 @@ public class H2UserDao implements UserDao {
 
     @SneakyThrows
     public Collection<UserCommunication> getUserCommunications(int user_id) {
+
         Collection<UserCommunication> communicationses = new HashSet<>();
         try (Connection con = connectionSupplier.get();
              PreparedStatement statement = con.prepareStatement("SELECT * FROM get_communications(?)")) {
@@ -238,7 +242,7 @@ public class H2UserDao implements UserDao {
                             communications.setMessage(rs1.getString("message"));
                             communications.setActive(rs1.getInt("active"));
                             communications.setCommunication_id(rs1.getInt("communication_id"));
-                            communications.setDate(rs1.getDate("date"));
+                            communications.setDate(new DateTime(rs1.getTimestamp("date").getTime()));
                             communications.setPhoto(Base64.encode(rs1.getBytes("photo")));
                             communications.setOwnerPhoto(Base64.encode(rs1.getBytes("photo")));
                             communicationses.add(communications);

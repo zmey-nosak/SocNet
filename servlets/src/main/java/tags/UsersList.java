@@ -23,7 +23,8 @@ public class UsersList implements Printable {
 
     public String getString() {
         StringBuffer out = new StringBuffer();
-        for (User user : list)
+        out.append("<table padding=0px margin=0px border=\"1\">");
+        for (User user : list) {
             out.append("<tr><td height=150 align=\"center\"><image src=data:image/jpg;base64,")
                     .append(user.getPhoto())
                     .append(" width=\"100\" height=\"150\"/>")
@@ -36,6 +37,9 @@ public class UsersList implements Printable {
                             + user.getF_name() + " "
                             + user.getI_name() + "');\">" +
                             "</td></tr>");
+        }
+        out.append("</table>");
         return out.toString();
+
     }
 }

@@ -2,6 +2,7 @@ package model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.joda.time.DateTime;
 
 import java.sql.Date;
 
@@ -19,5 +20,5 @@ public class UserCommunication {
     private String photo;
     private String ownerPhoto;
     private int active;
-    private java.sql.Date date;
+    private DateTime date;
 }

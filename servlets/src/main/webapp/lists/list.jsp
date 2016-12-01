@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/main_style.css">
 
+    <link rel="stylesheet" href="/main_style.css">
     <script>
         function showParameters(img, id, fio) {
             var oParams = {img: img, id: id, fio: fio};
@@ -25,41 +25,43 @@
             }
         }
     </script>
+    ${socnet:getCSS(pageContext.request.getAttribute("css"))}
 </head>
-<body class=body text=#666564>
-<p align="right" font-size="14">
-    <a class="A" align="right" href=#>Выход</a>
-</p>
-<table class=table cellspacing="8px" width="80%">
-    <tr class=tr>
-        <td width="5%" valign="top">
-            <table width="5%">
-                <tr>
-                    <td><a class="A" href="/index.html">На главную</a></td>
-                    <td width=5px></td>
-                </tr>
-                <tr>
-                    <td><a class="A" href="/list/friends">Мои друзья</a></td>
-                    <td width=5px></td>
-                </tr>
-                <tr>
-                    <td><a class="A" href="/list/messages">Сообщения</a>
-                    </td>
-                    <td width=5px id="mess"></td>
-                </tr>
-                <tr>
-                    <td><a class="A" href="/index.html">Сообщество</a></td>
-                    <td width=5px></td>
-                </tr>
-            </table>
+<body>
+<table width="800" border="0" align="center" height="700">
+    <tr>
+        <td valign="top" height="15" align=right><a href=#>Выход</a>
         </td>
-        <td class=td cellpadding=0 cellspacing=0 align=center valign=top width=40%>
-            <table padding=0px margin=0px border="1">
-                ${socnet:getList(requestScope["list"])}
+    </tr>
+    <tr>
+        <td valign=top>
+            <table width="100%" height="100%">
+                <tr>
+                    <td valign="top" width="200px" style="border:#0000FF solid 1px" height=300px>
+                        <div class="left_menu_my">
+                            <ul>
+                                <li><a href="/index.html">На главную</a></li>
+                                <li><a href="/list/friends">Друзья</a></li>
+                                <li><a href="/list/messages">Сообщения</a> <a color="red" href=#></a></li>
+                                <li><a href="/index.html">Сообщество</a></li>
+
+                            </ul>
+                        </div>
+                    </td>
+                    <td margin=0px valign=top style="border:#0000FF solid 1px" height=300px>
+                        <table width=100% margin=0px>
+                            <tr>
+                                <td width=50 height=75 rowspan=2>
+                                    ${socnet:getList(requestScope["list"])}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
             </table>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

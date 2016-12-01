@@ -41,7 +41,7 @@ class MyWebSocket {
     }
 
     writeToScreen(message) {
-        /** @type HTMLTableColElement*/
+        /** @type HTMLLinkElement*/
         this.output = document.getElementById("mess");
         var t= document.createTextNode("1");
         if (this.output != null) {

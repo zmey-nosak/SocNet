@@ -2,6 +2,9 @@ package controllers;
 
 import dao.UserDao;
 import model.UserInfo;
+import tags.BooksListMini;
+import tags.UsersList;
+import tags.UsersListMini;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,6 +20,7 @@ import java.io.IOException;
 @WebServlet("/userpage/")
 public class User extends HttpServlet {
     UserDao userDao;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -26,15 +30,17 @@ public class User extends HttpServlet {
         } else {
             userInfo = userDao.getUserInfo((long) (req.getSession().getAttribute("user_id")));
         }
-         req.setAttribute("userInfo", userInfo);
-         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userpage/index.jsp");
-         requestDispatcher.forward(req, resp);
+        req.setAttribute("userInfo", userInfo);
+        req.setAttribute("miniFriendList", new UsersListMini(userInfo));
+        req.setAttribute("miniBookList", new BooksListMini(userInfo));
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userpage/index2.jsp");
+        requestDispatcher.forward(req, resp);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+        doGet(req, resp);
     }
 
     @Override

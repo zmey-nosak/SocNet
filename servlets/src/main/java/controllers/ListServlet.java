@@ -29,8 +29,10 @@ public class ListServlet extends HttpServlet {
             user_id = (long) req.getSession().getAttribute("user_id");
             if (req.getRequestURI().contains("/list/friends")) {
                 req.setAttribute("list", new UsersList(userDao.getAllUsers()));
+                req.setAttribute("css", "<link rel=\"stylesheet\" href=\"/lists.css\">");
             } else if (req.getRequestURI().contains("/list/messages")) {
                 req.setAttribute("list", new CommunicationList(userDao.getUserCommunications((int) user_id)));
+                req.setAttribute("css", "<link rel=\"stylesheet\" href=\"/lists.css\">");
             }
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/lists/list.jsp");
             requestDispatcher.forward(req, resp);
