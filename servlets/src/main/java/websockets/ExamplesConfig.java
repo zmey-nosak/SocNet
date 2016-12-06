@@ -1,6 +1,7 @@
 package websockets;
 
 import dao.UserDao;
+import model.User;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.Endpoint;
@@ -18,7 +19,9 @@ import java.util.Set;
 public class ExamplesConfig extends ServerEndpointConfig.Configurator {
     @Override
     public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
-        sec.getUserProperties().put("user_id", (String) ((HttpSession) request.getHttpSession()).getAttribute("user_id").toString());
+        HttpSession session = (HttpSession) request.getHttpSession();
+        User user = (User) session.getAttribute("user");
+        sec.getUserProperties().put("user_id", user.getUser_id() + "");
         sec.getUserProperties().put("userDao", (UserDao) ((HttpSession) request.getHttpSession()).getServletContext().getAttribute("userDao"));
     }
 }

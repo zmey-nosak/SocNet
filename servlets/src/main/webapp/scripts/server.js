@@ -51,16 +51,35 @@ class Server {
 
     /**
      * @param {string} id
-     * @returns Promise<UserInfo>
+     * @returns Promise<User>
      */
-    static getUserInfo(id) {
+    static getUser(id) {
         return new Promise((resolve, reject) => this.getObjectAsync('users/' + id, resolve, reject));
     }
+
     /**
      * @param {string} id
      * @returns Promise<UserCommunications[]>
      */
     static getUserCommunications(id) {
-        return new Promise((resolve, reject) => this.getObjectAsync('users/' + id+ '/communications', resolve, reject));
+        return new Promise((resolve, reject) => this.getObjectAsync('users/' + id + '/communications', resolve, reject));
     }
+
+    /**
+     * @param {string} id
+     * @param {string} communication_id
+     * @returns Promise<UserCommunications[]>
+     */
+    static getUserCommunicationInfo(id, communication_id) {
+        return new Promise((resolve, reject) => this.getObjectAsync('users/' + id + '/communications/' + communication_id, resolve, reject));
+    }
+
+    /**
+     * @param {string} id
+     * @returns Promise<Message[]>
+     */
+    static getUserMessages(user_id, communication_id) {
+        return new Promise((resolve, reject) => this.getObjectAsync('users/' + user_id + '/communications/' + communication_id + '/messages', resolve, reject));
+    }
+
 }

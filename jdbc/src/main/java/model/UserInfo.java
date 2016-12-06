@@ -20,6 +20,6 @@ public class UserInfo {
     private String i_name;
     private LocalDate dob;
     private String photo;
-    private Long id;
+    private int id;
 
 }

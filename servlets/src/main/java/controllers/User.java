@@ -23,12 +23,11 @@ public class User extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         UserInfo userInfo;
         if (req.getParameterMap().containsKey("user_id")) {
-            userInfo = userDao.getUserInfo(Long.parseLong(req.getParameter("user_id")));
+            userInfo = userDao.getUserInfo(Integer.parseInt(req.getParameter("user_id")));
         } else {
-            userInfo = userDao.getUserInfo((long) (req.getSession().getAttribute("user_id")));
+            userInfo = userDao.getUserInfo((((model.User) req.getSession().getAttribute("user")).getUser_id()));
         }
         req.setAttribute("userInfo", userInfo);
         req.setAttribute("miniFriendList", new UsersListMini(userInfo));

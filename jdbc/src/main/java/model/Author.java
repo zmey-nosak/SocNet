@@ -11,10 +11,10 @@ import java.time.LocalDate;
 @Value
 @AllArgsConstructor
 public class Author {
-    private final long author_id;
+    private final int author_id;
     private final String f_name;
     private final String i_name;
     private final String o_name;
     private final LocalDate dob;
-    private final long country_id;
+    private final int country_id;
 }

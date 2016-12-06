@@ -9,7 +9,7 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class BookShop {
-    private final long shop_id;
+    private final int shop_id;
     private final String shop_name;
     private final String urls;
 }

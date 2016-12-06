@@ -22,6 +22,7 @@
         </auth-constraint>
     </security-constraint>
 
+
     <security-role>
         <role-name>plain_user</role-name>
     </security-role>

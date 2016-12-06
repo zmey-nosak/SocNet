@@ -23,7 +23,7 @@
             a.src = "data:image/jpg;base64," + oParams.img;
             var fieldNameElement = document.getElementById("field_name");
             fieldNameElement.textContent = oParams.fio;
-            new MyWebSocket("", "message", oParams.id + "");
+            new MyWebSocket("", "message", oParams.id + "","");
         }
         ;
 

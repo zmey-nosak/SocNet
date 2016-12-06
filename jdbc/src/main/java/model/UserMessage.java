@@ -10,11 +10,12 @@ import org.joda.time.DateTime;
 @Getter
 @Setter
 public class UserMessage {
-        private String message;
-        private long user_id;
-        private String f_name;
-        private String i_name;
-        private String photo;
-        private int active;
-        private DateTime date;
+    private String message;
+    private int user_id;
+    //    private String f_name;
+    //    private String i_name;
+    //    private String photo;
+    private int active;
+    private DateTime date;
+    private int groupNum;
 }

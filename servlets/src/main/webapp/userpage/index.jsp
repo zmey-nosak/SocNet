@@ -6,6 +6,7 @@
 <head>
     <link rel="stylesheet" href="/main_style.css">
     <script src="/websocket.js"></script>
+    <script src="/scripts/server.js"></script>
     <script>
         addEventListener("DOMContentLoaded", ()=>new MyWebSocket("mess", "", ""), false);
     </script>

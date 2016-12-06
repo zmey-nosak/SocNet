@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Genre {
-  private Long genre_id;
+  private int genre_id;
   private String genre_name;
 
-  public Long getGenre_id() {
+  public int getGenre_id() {
     return genre_id;
   }
 
-  public void setGenre_id(Long genre_id) {
+  public void setGenre_id(int genre_id) {
     this.genre_id = genre_id;
   }
 

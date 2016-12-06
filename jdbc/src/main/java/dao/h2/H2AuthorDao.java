@@ -33,7 +33,7 @@ public class H2AuthorDao implements AuthorDao {
              ResultSet resultSet = statement.executeQuery("SELECT author_id, f_name, i_name, o_name, dob, country_id FROM AUTHORS")) {
             while (resultSet.next()) {
                 authors.add(new Author(
-                        resultSet.getLong("author_id"),
+                        resultSet.getInt("author_id"),
                         resultSet.getString("f_name"),
                         resultSet.getString("i_name"),
                         resultSet.getString("o_name"),

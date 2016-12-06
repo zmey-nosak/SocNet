@@ -1,8 +1,14 @@
+<%@ page import="tags.Printable" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/WEB-INF/socNet.tld" prefix="socnet" %>
 <html>
 <head>
     <title>Title</title>
+    <script src="/websocket.js"></script>
+    <script src="/scripts/server.js"></script>
+    <%=request.getAttribute("js")%>
+
+
     <script>
         function showParameters(img, id, fio) {
             var oParams = {img: img, id: id, fio: fio};
@@ -22,10 +28,22 @@
 
             }
         }
+        ;
+
+        function setup() {
+            var socket = new MyWebSocket("<%=((Printable)request.getAttribute("list")).getResponseElementName()%>",
+                    "<%=((Printable)request.getAttribute("list")).getContentElementName()%>",
+                    <%=request.getAttribute("partner")%>,
+                    "<%=((Printable)request.getAttribute("list")).getEventElementName()%>",
+                    <%=((Printable)request.getAttribute("list")).getPrintObject()%>);
+        }
+        ;
     </script>
     ${socnet:getCSS(pageContext.request.getAttribute("css"))}
+
+
 </head>
-<body>
+<body onload="setup()">
 <table width="800" border="0" align="center" height="700">
     <tr>
         <td valign="top" height="15" align=right><a href=#>Выход</a>
@@ -49,8 +67,17 @@
                     <td margin=0px valign=top style="border:#0000FF solid 1px" height=300px>
                         <table width=100% margin=0px>
                             <tr>
-                                <td width=50 height=75 rowspan=2>
+                                <td valign="top">
                                     ${socnet:getList(requestScope["list"])}
+                                </td>
+                                <td height="100%" valign=top>
+                                    <p><b>Введите сообщение:</b></p>
+                                    <p><textarea rows="10" cols="45" name="text"
+                                                 id="<%=((Printable)request.getAttribute("list")).getContentElementName()%>"></textarea>
+                                    </p>
+                                    <p><input type="button" value="Отправить"
+                                              id="<%=((Printable)request.getAttribute("list")).getEventElementName()%>">
+                                    </p>
                                 </td>
                             </tr>
                         </table>

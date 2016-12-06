@@ -2,6 +2,7 @@ package filters;
 
 
 import dao.UserDao;
+import model.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,8 +26,8 @@ public class UserFilter implements HttpFilter {
         } else if (!request.getParameterMap().containsKey("user_id")) {
             userDao = (UserDao) request.getServletContext().getAttribute("userDao");
             String email = request.getRemoteUser();
-            long user_id = userDao.getUserIdByEmail(email);
-            request.getSession().setAttribute("user_id", user_id);
+            User user = userDao.getUserIdByEmail(email);
+            request.getSession().setAttribute("user", user);
             chain.doFilter(request, response);
         }
 

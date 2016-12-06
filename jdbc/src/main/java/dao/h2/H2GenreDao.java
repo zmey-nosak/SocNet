@@ -30,7 +30,7 @@ public class H2GenreDao implements GenreDao {
              ResultSet resultSet = statement.executeQuery("SELECT genre_id, genre_name FROM genres")) {
             while (resultSet.next()) {
                 genres.add(new Genre(
-                        resultSet.getLong("genre_id"),
+                        resultSet.getInt("genre_id"),
                         resultSet.getString("genre_name")));
             }
             return genres;

@@ -7,4 +7,18 @@ import java.util.Collection;
  */
 public interface Printable {
     String getString();
+
+    String getPrintObject();
+
+    default String getEventElementName() {
+        return "start_sending";
+    }
+
+    default String getContentElementName() {
+        return "content_element";
+    }
+
+    default String getResponseElementName() {
+        return "response_element";
+    }
 }

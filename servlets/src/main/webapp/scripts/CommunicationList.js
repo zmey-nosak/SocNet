@@ -23,16 +23,16 @@ class CommunicationList {
 
 
         //noinspection JSValidateTypes
-         var row = this.targetElement.insertRow();
-         var cell = row.insertCell(0);
-         var cell1 = row.insertCell(1);
+        var row = this.targetElement.insertRow();
+        var cell = row.insertCell(0);
+        var cell1 = row.insertCell(1);
         const /** @type HTMLImageElement */ img = document.createElement("img");
         img.src = 'data:image/jpg;base64,' + communication.photo;
         img.width = '50';
         img.height = '75';
         cell.appendChild(img);
-        var div=document.createElement("div")
-        var fio=document.createTextNode(communication.f_name);
+        var div = document.createElement("div")
+        var fio = document.createTextNode(communication.f_name);
         div.appendChild(fio);
     }
 

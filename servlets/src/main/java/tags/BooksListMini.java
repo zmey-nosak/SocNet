@@ -36,4 +36,9 @@ public class BooksListMini implements Printable {
         return out.toString();
 
     }
+
+    @Override
+    public String getPrintObject() {
+        return null;
+    }
 }

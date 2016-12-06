@@ -9,11 +9,11 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class Book {
-    private final long book_id;
+    private final int book_id;
     private final String book_name;
     private final int pages_count;
-    private final long author_id;
+    private final int author_id;
     private final String year_name;
     private final String image_src;
-    private final long genre_id;
+    private final int genre_id;
 }

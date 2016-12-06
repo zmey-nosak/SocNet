@@ -28,13 +28,13 @@ public class H2BookDao implements BookDao {
              ResultSet resultSet = statement.executeQuery("SELECT book_id, book_name, pages_count, author_id,year_name,image_src,genre_id FROM BOOKS")) {
             while (resultSet.next()) {
                 books.add(new Book(
-                        resultSet.getLong("book_id"),
+                        resultSet.getInt("book_id"),
                         resultSet.getString("book_name"),
                         resultSet.getInt("pages_count"),
-                        resultSet.getLong("author_id"),
+                        resultSet.getInt("author_id"),
                         resultSet.getString("year_name"),
                         resultSet.getString("image_src"),
-                        resultSet.getLong("genre_id")));
+                        resultSet.getInt("genre_id")));
             }
             return books;
         }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 public class User {
-    private Long user_id;
+    private int user_id;
     private String email;
     private String password;
     private String f_name;

@@ -7,7 +7,7 @@
     <title></title>
     <script src="/websocket.js"></script>
     <script>
-        addEventListener("DOMContentLoaded", ()=>new MyWebSocket("mess", "", ""), false);
+        addEventListener("DOMContentLoaded", ()=>new MyWebSocket("mess", "", "", ""), false);
     </script>
     <style type="text/css">
 
@@ -65,7 +65,8 @@
                             <ul>
                                 <li><a href="/index.html">На главную</a></li>
                                 <li><a href="/list/friends">Друзья</a></li>
-                                <li><a href="/list/communications">Сообщения</a> <a id="mess" color="red" href=#></a></li>
+                                <li><a href="/list/communications">Сообщения</a> <a id="mess" color="red" href=#></a>
+                                </li>
                                 <li><a href="/index.html">Сообщество</a></li>
 
                             </ul>
@@ -75,7 +76,8 @@
                         <table width=100% margin=0px>
                             <tr>
                                 <td height=170px style="border-bottom:#0000FF solid 1px" align=center>
-                                    <image border="1" width=120px height="170px" src=data:image/jpg;base64,<%=userInfo.getPhoto()%> />
+                                    <image border="1" width=120px height="170px"
+                                           src=data:image/jpg;base64,<%=userInfo.getPhoto()%> />
                                     <a href=# class="button15">Изменить</a>
                                     <p></p>
                                 </td>
@@ -94,8 +96,10 @@
                         <table width=100% margin=0px>
                             <tr>
                                 <td width=100% height=170px style="border-bottom:#0000FF solid 1px" valign=top>
-                                    <div align=left><h1><%=userInfo.getF_name() + " " + userInfo.getI_name()%></h1></div>
-                                    <div>Дата рождения:<%=userInfo.getDob()%></div>
+                                    <div align=left><h1><%=userInfo.getF_name() + " " + userInfo.getI_name()%>
+                                    </h1></div>
+                                    <div>Дата рождения:<%=userInfo.getDob()%>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

@@ -3,15 +3,17 @@ package openapi;
 import dao.UserDao;
 import listeners.Initializer;
 import model.UserCommunication;
+import model.UserMessage;
+import org.joda.time.DateTime;
 
 import javax.servlet.ServletContext;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -60,6 +62,35 @@ public class UserResource implements JsonRestfulWebResource {
         final Collection<UserCommunication> communications = userDao.getUserCommunications(id);
         if (!communications.isEmpty()) {
             return this.ok(communications);
+        } else {
+            return noContent();
+        }
+    }
+
+    @GET
+    @Path("{id}/communications/{communication_id}")
+    public Response getUserCommunicationInfo(@PathParam("id") int id, @PathParam("id") int communication_id) {
+        final Collection<UserCommunication> communications = userDao.getUserCommunications(id);
+        if (!communications.isEmpty()) {
+            return this.ok(communications);
+        } else {
+            return noContent();
+        }
+    }
+
+    @GET
+    @Path("{userId}/communications/{communicationId}/messages")
+    public Response getMessages(@PathParam("userId") int user_id, @PathParam("communicationId") int communication_id) {
+        final Collection<UserMessage> messages = userDao.getUserMessages(user_id, communication_id);
+        Comparator<UserMessage> comparator = new Comparator<UserMessage>() {
+            @Override
+            public int compare(UserMessage o1, UserMessage o2) {
+                return o1.getDate().getMillis() > o2.getDate().getMillis() ? 1 : o1.getDate().getMillis() == o2.getDate().getMillis() ? 0 : -1;
+            }
+        };
+        Collections.sort((ArrayList) messages, comparator);
+        if (!messages.isEmpty()) {
+            return this.ok(messages);
         } else {
             return noContent();
         }

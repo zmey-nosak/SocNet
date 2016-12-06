@@ -1,65 +1,81 @@
 body {
-    background: white;
+    background: #EDEEF0;
     color: #000000;
     font-family: Trebuchet MS, Arial, Times New Roman;
     font-size: 12px;
 }
 
-#container {
+.dateheader {
     background: white;
     margin: 0px;
     width: 300px;
-    margin-bottom:20px;
+    color: brown;
+    font-size: 10px;
+
 }
 
-#header {
+.container {
+    background: white;
+    margin: 0px;
+    width: 300px;
+    padding-bottom: 10px;
+}
+
+.header {
     background: #838283;
     height: 200px;
     width: 900px;
 }
 
-#head {
+.head {
     width: 260px;
     height: 15px;
-    margin-left:40px;
-    margin-right:600px;
-    margin-bottom:0px;
-    font-size:small;
+    margin-left: 40px;
+    margin-right: 600px;
+    margin-bottom: 0px;
+    font-size: small;
     color: blue;
-    background-color:  transparent;
+    background-color: transparent;
+    font-size: 10px;
 
 }
 
-#mainImage {
+.mainImage {
     float: left;
-    width: 40px;
-    height:50px;
 }
 
-#message {
+.message {
     background: #FFFFFF;
-    margin-left:35px;
-    margin-top:5px;
-    padding: 5px; /* Поля */
-    font-size:small;
-    color:black;
+    margin-left: 50px;
+    font-size: small;
+    color: black;
     background-color: transparent;
 }
-#container:hover  {
-    background: #f0f0f0; /* Цвет фона */
+
+.container:hover {
+    background: aliceblue;
     white-space: normal; /* Обычный перенос текста */
 }
 
-#childImage {
+.childImage {
     background: #333333;
     float: left;
     width: 20px;
-    height:25px;
-    margin-top:5px;
-    margin-left:2px;
+    height: 25px;
+    margin-top: 5px;
+    margin-left: 2px;
 }
-#footer {
+
+.footer {
     background: #838283;
     height: 180px;
     width: 900px;
+}
+
+.prokrutka {
+    height: 600px; /* высота нашего блока */
+    background: #fff; /* цвет фона, белый */
+    border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+    overflow-y: scroll; /* прокрутка по вертикали */
+    width:400px;
 }

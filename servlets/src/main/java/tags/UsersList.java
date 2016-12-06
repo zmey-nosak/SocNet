@@ -42,4 +42,9 @@ public class UsersList implements Printable {
         return out.toString();
 
     }
+
+    @Override
+    public String getPrintObject() {
+        return null;
+    }
 }

@@ -3,7 +3,10 @@ package websockets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.UserDao;
 import jdk.nashorn.internal.parser.JSONParser;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
+import org.joda.time.DateTime;
 import util.HTMLFilter;
 
 
@@ -35,21 +38,21 @@ public class SocNetWebSocket {
     }
 
     @OnMessage
-
     public void handleMessage(String message, Session userSession/*, @PathParam("user_id")String user_id*/) {
 
         String user_id_from = (String) userSession.getUserProperties().get("user_id");
         UserDao userDao = (UserDao) userSession.getUserProperties().get("userDao");
-
         if (user_id_from != null) {
-            try{
-            ObjectMapper mapper = new ObjectMapper();
-            Mess mess = mapper.readValue(message, Mess.class);
-            Optional<Session> session = users.stream().filter(x -> x.getUserProperties().get("user_id").equals(mess.getUser_id_to())).findAny();
-            userDao.sendMessage(Integer.parseInt(user_id_from), Integer.parseInt(mess.user_id_to), mess.message);
-            if (session.isPresent()) {
-                session.get().getBasicRemote().sendText(HTMLFilter.filter(mess.message));
-            }}catch (Exception e){
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                Mess mess = mapper.readValue(message, Mess.class);
+                Optional<Session> session = users.stream().filter(x -> x.getUserProperties().get("user_id").equals(mess.getUser_id_to())).findAny();
+                userDao.sendMessage(Integer.parseInt(user_id_from), Integer.parseInt(mess.user_id_to), mess.message, DateTime.parse(mess.date));
+                userSession.getBasicRemote().sendText(message);
+                if (session.isPresent()) {
+                    session.get().getBasicRemote().sendText(HTMLFilter.filter(mess.message));
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -60,24 +63,11 @@ public class SocNetWebSocket {
     public void handleError(Throwable t) {
     }
 
+    @Setter
+    @Getter
     private static class Mess {
         private String message;
         private String user_id_to;
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public String getUser_id_to() {
-            return user_id_to;
-        }
-
-        public void setUser_id_to(String user_id_to) {
-            this.user_id_to = user_id_to;
-        }
+        String date;
     }
 }
