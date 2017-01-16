@@ -1,0 +1,131 @@
+
+body {
+    /* Убираю отступы. */
+    margin: 0px;
+    /* Убираю еще отступы. */
+    padding: 0px;
+    /* Задаю шрифт. */
+    font: 12px 'Verdana';
+    COLOR: #FEDD8F;
+}
+.a {
+    /* Делаю элементы блочными: */
+    display: block;
+    /* Задаю белый цвет. */
+    color: #FF9E26;
+    /* Задаю отступ 10px. */
+    padding: 10px;
+    /* Убираю форматирование*/
+    text-decoration: none;
+    /* Задаю цвет. */
+    background-color: transparent;
+
+}
+.table {
+    /*background: linear-gradient(#fa7f2d, #ff6600, #fa7f2d);*/
+    border-color: #ff6600;
+    border-width: 5px;
+    border-style: solid;
+    padding: 5px;
+    box-shadow: inset 0 1px #fab587, 0 3px 3px #222;
+    border-radius: 3px;
+    margin: 40px auto;
+    align-self: center;
+    background: url(/images/fonder.gif);
+
+    TEXT-DECORATION: none;
+}
+
+ul {
+    /* Убираю маркеры у списка*/
+    list-style: none;
+    /* Делаю элементы блочными. */
+    display: block;
+    /* Убираю отступы. */
+    margin: 0px;
+    /* Убираю еще отступы! */
+    padding: 0px;
+}
+
+ul:after {
+    /* Делаю элементы блочными. */
+    display: block;
+    /* Убираю выравнивание. */
+    float: none;
+    content: ' ';
+    clear: both;
+}
+
+ul.mmenuu > li {
+    /* Задаю выравнивание и позиционирование. */
+    float: left;
+    /* Считаем координаты относительно исходного места*/
+    position: relative;
+}
+
+ul.mmenuu > li > a {
+    /* Делаю элементы блочными: */
+    display: block;
+    /* Задаю белый цвет. */
+    color: #FF9E26;
+    /* Задаю отступ 10px. */
+    padding: 10px;
+    /* Убираю форматирование*/
+    text-decoration: none;
+    /* Задаю цвет. */
+    background-color: transparent;
+
+}
+
+ul.mmenuu > li > a:hover {
+    /* Задаю цвет при наведении. */
+    background-color: transparent;
+    /*color: #FFF;*/
+    text-decoration: underline;
+}
+
+ul.ssubmenuu {
+    position: absolute;
+    width: 120px;
+    top: 30px;
+    left: 0px;
+    /* Делаю субменю скрытыми. */
+    display: none;
+    /* Цвет — белый. */
+    background-color: transparent;
+}
+
+ul.ssubmenuu > li {
+    /* Блочное расположение элементов*/
+    display: block;
+}
+
+ul.ssubmenuu > li > a {
+    /* Делаю элементы блочными. */
+    display: block;
+    /* Убираю форматирование*/
+    text-decoration: none;
+    /* Задаю отступ. */
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    /* Задаю цвет. */
+    color: #FF9E26;
+
+    /* Еще цвет. */
+    background-color: transparent;
+}
+
+ul.ssubmenuu > li > a:hover {
+    /* Цвет бэкграунда при наведении. */
+    /*background-color: #573D1D;*/
+    /* Задаю подчеркивание*/
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+ul.mmenuu > li:hover > ul.ssubmenuu {
+    /* Делаю элементы блочными. */
+    display: block;
+}

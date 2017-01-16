@@ -1,20 +1,22 @@
 package openapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import lombok.SneakyThrows;
 
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
-import java.util.HashMap;
 
 interface JsonRestfulWebResource {
 
-    ObjectWriter writer = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
     @SneakyThrows
     default String toJson(Object o) {
-        return writer.writeValueAsString(o);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JodaModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return mapper.writer().writeValueAsString(o);
     }
 
     default Response ok(Collection<?> objects) {
@@ -28,4 +30,5 @@ interface JsonRestfulWebResource {
     default Response noContent() {
         return Response.noContent().build();
     }
+
 }

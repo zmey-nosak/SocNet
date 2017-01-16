@@ -1,6 +1,8 @@
 package websockets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import dao.UserDao;
 import jdk.nashorn.internal.parser.JSONParser;
 import lombok.Getter;
@@ -14,10 +16,7 @@ import javax.json.Json;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Echetik on 16.11.2016.
@@ -45,13 +44,31 @@ public class SocNetWebSocket {
         if (user_id_from != null) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
-                Mess mess = mapper.readValue(message, Mess.class);
-                Optional<Session> session = users.stream().filter(x -> x.getUserProperties().get("user_id").equals(mess.getUser_id_to())).findAny();
-                userDao.sendMessage(Integer.parseInt(user_id_from), Integer.parseInt(mess.user_id_to), mess.message, DateTime.parse(mess.date));
-                userSession.getBasicRemote().sendText(message);
-                if (session.isPresent()) {
-                    session.get().getBasicRemote().sendText(HTMLFilter.filter(mess.message));
+                TechnicalMessage mess = mapper.readValue(message, TechnicalMessage.class);
+
+                int type = Integer.parseInt(mess.getType());
+                switch (type) {
+                    case 0:
+                        int messId = userDao.sendMessage(Integer.parseInt(user_id_from), Integer.parseInt(mess.user_id_to), mess.message, DateTime.parse(mess.date));
+
+                        mess.setId(String.valueOf(messId));
+                        sendMessOnlineUser(mess.getUser_id_to(), toJson(mess));//send message to partner
+
+                        mess.setUser_id_to(mess.getUser_id());//messageForMyself
+                        userSession.getBasicRemote().sendText(toJson(mess));
+
+                        break;
+                    case 1:
+                        userDao.updateMessages(mess.getMessages_for_update());
+                        userSession.getBasicRemote().sendText(message);
+                        sendMessOnlineUser(mess.getUser_id_to(), message);
+                        break;
+                    case 2:
+                        sendMessOnlineUser(mess.getUser_id_to(), message);
+                        break;
                 }
+
+                //    userSession.getBasicRemote().sendText(message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -63,11 +80,33 @@ public class SocNetWebSocket {
     public void handleError(Throwable t) {
     }
 
+    @SneakyThrows
+    private void sendMessOnlineUser(String whom, String mess) {
+        Optional<Session> session = users.stream().filter(x -> x.getUserProperties().get("user_id").equals(whom)).findAny();
+        if (session.isPresent()) {
+            session.get().getBasicRemote().sendText(mess);
+        }
+    }
+
+    @SneakyThrows
+    private String toJson(Object o) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JodaModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return mapper.writer().writeValueAsString(o);
+    }
+
     @Setter
     @Getter
-    private static class Mess {
+    private static class TechnicalMessage {
         private String message;
         private String user_id_to;
-        String date;
+        private String user_id;
+        private String date;
+        private String type;
+        private String new_friend_id;
+        private String messages_for_update;
+        private String id;
+        private String active;
     }
 }

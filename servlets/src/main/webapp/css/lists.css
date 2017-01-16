@@ -1,25 +1,19 @@
-body {
-    background: white;
-    color: #000000;
-    font-family: Trebuchet MS, Arial, Times New Roman;
-    font-size: 12px;
-}
+    .comm_container {
+        background-color:#F7F7F7;
 
-.container {
-    background: #FFFFFF;
     margin: 0px;
     width: 300px;
     height: 50px;
     border: 2px #000000 solid;
 }
 
-.header {
+.comm_header {
     background: #838283;
     height: 200px;
     width: 900px;
 }
 
-.head {
+.comm_head {
     width: 260px;
     height: 15px;
     margin-left: 40px;
@@ -31,14 +25,14 @@ body {
     background-color: aliceblue;
 }
 
-.mainImage {
+.comm_mainImage {
     float: left;
     width: 40px;
     height: 50px;
     border-right: 1px #000000 solid
 }
 
-.message {
+.comm_message {
     background: #FFFFFF;
     margin-left: 64px;
     margin-top: 5px;
@@ -48,15 +42,16 @@ body {
     text-overflow: ellipsis; /* Многоточие */
     font-size: small;
     color: blue;
-    background-color: oldlace;
+    background-color: white;
+    text-align:left;
 
 }
 
-.message:hover {
+.comm_message:hover {
     background: #f0f0f0; /* Цвет фона */
 }
 
-.childImage {
+.comm_childImage {
     background: #333333;
     float: left;
     width: 20px;
@@ -65,7 +60,7 @@ body {
     margin-left: 2px;
 }
 
-.footer {
+.comm_footer {
     background: #838283;
     height: 180px;
     width: 900px;

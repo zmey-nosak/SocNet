@@ -1,19 +1,26 @@
 package model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.Value;
 
 /**
  * Created by Echetik on 26.10.2016.
  */
-@Value
+@Getter
 @AllArgsConstructor
+@Setter
 public class Book {
-    private final int book_id;
-    private final String book_name;
-    private final int pages_count;
-    private final int author_id;
-    private final String year_name;
-    private final String image_src;
-    private final int genre_id;
+    private int book_id;
+    private String book_name;
+    private int pages_count;
+    private int author_id;
+    private String year_name;
+    private String image_src;
+    private int genre_id;
+    public Book() {
+    }
+
+    ;
 }

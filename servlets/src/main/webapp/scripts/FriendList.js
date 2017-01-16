@@ -4,47 +4,114 @@
 'use strict';
 
 class FriendList {
-
-    /**
-     * @param {string} id
-     */
-    constructor(id = "tab") {
-        /**
-         * @private
-         * @type HTMLTableElement
-         */
-        this.targetElement = document.getElementById(id);
+    constructor(user_id) {
+        this.owner_id = user_id;
+        this.identification = "friends";
+        socket.webSocket.addEventListener("message", evt=> {
+            var obj = JSON.parse(evt.data, function (key, value) {
+                if (key == 'date') return new Date(value);
+                return value;
+            });
+            if (obj.type == 2 && flag == 1) {
+                this.handle(obj);
+            }
+        }, false);
+        this.flag = 0;//0-sendMessage, 1-activateFriendShip
+        // this.print('response_element');
     }
 
-    /**
-     * @param {User} friend
-     */
-    add(friend) {
-        var wr = '<table><tr><td height=150 align=\"center\"><image src=data:image/jpg;base64,'
-            + friend.photo
-            + ' width=\"100\" height=\"150\"/></td><td>'
-            + '<a href=\"/userpage/?user_id=' + friend.user_id + '"\">'
-            + friend.f_name + ' ' + friend.i_name + '</a>'
-            + '<br><INPUT TYPE=button VALUE=\"Send Message\" ONCLICK=\"showParameters(\"' + friend.photo + '\",'
-            + '\"' + friend.user_id + '\",'
-            + '\"' + friend.f_name + ' ' + friend.i_name + '\");>'
-            + '</td></tr></table>';
+    init(id) {
+        this.targetElement = document.getElementById(id);
+        this.targetElement.innerHTML = '';
+        this.div_content = document.createElement("div");
+        this.div_content.className = "comm_prokrutka";
+        this.div_content.id = "response_element_" + this.identification;
+        this.targetElement.appendChild(this.div_content);
+    }
 
-        //noinspection JSValidateTypes
-        // var row = this.targetElement.insertRow();
-        //  var cell = row.insertCell(0);
-        //var cell_1 = row.insertCell(1);
-        //const /** @type HTMLImageElement */ img = document.createElement("img");
-        //img.src = 'data:image/jpg;base64,' + friend.photo;
-        //img.width = '50';
-        //img.height = '75';
-        //cell.appendChild(img);
-        //var link = document.createElement("a");
-        //link.href = '/userpage/id=' + friend.user_id;
-        // var link_text = document.createTextNode(friend.i_name + ' ' + friend.f_name);
-        //link.appendChild(link_text);
-        //cell_1.appendChild(link);
-        document.write(wr);
+    printFriends(id) {
+        this.init(id);
+        Server.getFriends(this.owner_id).then(friends=>this.addAll(friends));
+    }
+
+    printAllUsers(id) {
+        this.init(id);
+        Server.getUsers().then(users=>this.addAll(users));
+    }
+
+    printFriendRequest(id) {
+        this.init(id);
+        this.flag = 1;
+        Server.getFriendReqDetail().then(users=>this.addAll(users));
+    }
+
+    activateFriendship(friendId) {
+        Server.activateFriendShip(this.owner_id, friendId);
+    }
+
+    add(friend) {
+        var additional = document.getElementById("additionalColumn");
+        additional.innerHTML = '';
+        var div_container = document.createElement("div");
+        div_container.className = "comm_container";
+        var div_main_img = document.createElement("div");
+        div_main_img.className = "comm_mainImage";
+        var img = document.createElement("img");
+        img.src = "/files/" + friend.photo_src;
+        img.width = 40;
+        img.height = 50;
+        img.id = "image_" + friend.user_id;
+        div_main_img.appendChild(img);
+        div_container.appendChild(div_main_img);
+
+        var div_head = document.createElement("div");
+        div_head.className = "comm_head";
+        var a = document.createElement("a");
+        a.setAttribute("href", "/userpage?userId=" + friend.user_id);
+
+        var txt_node = document.createTextNode(friend.f_name + " "
+            + friend.i_name);
+        a.appendChild(txt_node);
+        div_head.appendChild(a);
+        div_container.appendChild(div_head);
+
+        var div_mess = document.createElement("div");
+        div_mess.className = "comm_message";
+
+        var txt_node2;
+        /** @type HTMLLinkElement */var a = document.createElement("a");
+        if (this.flag == 1) {
+            txt_node2 = document.createTextNode("Утвердить заявку");
+            a.setAttribute("href", "#");
+            a.addEventListener("click", evt=> {
+                Server.activateFriendShip(this.owner_id, friend.user_id).then(evt=> {
+                    div_mess.innerHTML = '';
+                    div_mess.appendChild(document.createTextNode("Заявка одобрена"));
+                    var el = document.getElementById("newFriends");
+                    if (el != null) {
+                        if (el.innerHTML.replace(/\s/g, '').length) {
+                            var cnt = Number(el.innerHTML);
+                            el.innerHTML = '';
+                            cnt = cnt - 1;
+                            if (cnt > 0)
+                                el.appendChild(document.createTextNode(cnt));
+                        } else {
+                            el.innerHTML = '';
+                        }
+                    }
+                })
+            });
+        } else {
+            txt_node2 = document.createTextNode("Написать сообщение");
+            a.setAttribute("href", "#");
+            a.addEventListener("click", evt=>modalWindow.modalShow(friend, this.owner_id), true);
+        }
+
+        a.appendChild(txt_node2);
+        div_mess.appendChild(a);
+        div_container.appendChild(div_mess);
+        this.div_content.appendChild(div_container);
+
     }
 
     /**
@@ -52,5 +119,11 @@ class FriendList {
      */
     addAll(friends = []) {
         friends.forEach(this.add.bind(this));
+    }
+
+    handle(obj) {
+        if (document.getElementById(("response_element_" + this.identification)) != null) {
+            this.add(obj);
+        }
     }
 }

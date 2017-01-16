@@ -19,9 +19,13 @@ import java.util.Set;
 public class ExamplesConfig extends ServerEndpointConfig.Configurator {
     @Override
     public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
-        HttpSession session = (HttpSession) request.getHttpSession();
-        User user = (User) session.getAttribute("user");
-        sec.getUserProperties().put("user_id", user.getUser_id() + "");
-        sec.getUserProperties().put("userDao", (UserDao) ((HttpSession) request.getHttpSession()).getServletContext().getAttribute("userDao"));
+        try {
+            HttpSession session = (HttpSession) request.getHttpSession();
+            User user = (User) session.getAttribute("user");
+            sec.getUserProperties().put("user_id", user.getUser_id() + "");
+            sec.getUserProperties().put("userDao", (UserDao) ((HttpSession) request.getHttpSession()).getServletContext().getAttribute("userDao"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

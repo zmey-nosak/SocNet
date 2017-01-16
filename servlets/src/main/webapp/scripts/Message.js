@@ -11,6 +11,6 @@ class Message {
         this.user_id = 0;
         this.active = 0;
         this.date = new Date();
-        this.groupNum = 0;
+        this.id=0;
     }
 }

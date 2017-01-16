@@ -1,3 +1,4 @@
+<%@ taglib prefix="socnet" uri="http://SocNet.com" %>
 <%@ page import="model.Author" %>
 <%@ page import="java.util.HashSet" %><%--
   Created by IntelliJ IDEA.
@@ -15,9 +16,10 @@
             color: #FF9E26; /* Цвет ссылок */
         }
     </style>
+    <link rel="stylesheet" href="/css/Menu.css">
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
-
+<socnet:menu user_id="${userId}"></socnet:menu>
 <jsp:useBean id="authors" class="java.util.HashSet" scope="request"/>
 <table border="1">
     <th>Автор</th>

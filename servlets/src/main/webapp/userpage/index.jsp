@@ -64,7 +64,7 @@
         <td class=td valign="top">
             <table border="1" width=180px border=1px valign="top">
                 <th colspan="3" align="center" valign="top">Друзья</th>
-
+                ${socnet:getList(requestScope["list"])}
                 <%for (User user : userInfo.getUser_friends()) {%>
                 <tr>
                     <td align=center>

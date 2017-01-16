@@ -21,6 +21,8 @@ import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.function.Supplier;
 
 /**
@@ -34,24 +36,26 @@ public class Initializer implements ServletContextListener {
     public final static String GENRE_DAO="genreDao";
     public final static String USER_DAO="userDao";
     @Override
-    @SneakyThrows
+
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext servletContext = sce.getServletContext();
        // String pathToDbConfig = servletContext.getRealPath("/") + "WEB-INF/classes/";
         Supplier<Connection> connectionPool;
 
         //= ConnectionPool.create(pathToDbConfig + "db.properties", pathToDbConfig + "schema.sql");
-        connectionPool = getConnectionSupplier();
-
-
-        AuthorDao authorDao = new H2AuthorDao(connectionPool);
-        BookDao bookDao = new H2BookDao(connectionPool);
-        GenreDao genreDao = new H2GenreDao(connectionPool);
-        UserDao userDao=new H2UserDao(connectionPool);
-        servletContext.setAttribute("authorDao", authorDao);
-        servletContext.setAttribute("bookDao", bookDao);
-        servletContext.setAttribute("genreDao", genreDao);
-        servletContext.setAttribute("userDao", userDao);
+        try {
+            connectionPool = getConnectionSupplier();
+            AuthorDao authorDao = new H2AuthorDao(connectionPool);
+            BookDao bookDao = new H2BookDao(connectionPool);
+            GenreDao genreDao = new H2GenreDao(connectionPool);
+            UserDao userDao = new H2UserDao(connectionPool);
+            servletContext.setAttribute("authorDao", authorDao);
+            servletContext.setAttribute("bookDao", bookDao);
+            servletContext.setAttribute("genreDao", genreDao);
+            servletContext.setAttribute("userDao", userDao);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private Supplier<Connection> getConnectionSupplier() throws NamingException {

@@ -5,7 +5,7 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-<resource-ref>
+    <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/myDb</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
@@ -15,7 +15,10 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Area - Allow methods</web-resource-name>
-            <url-pattern>/userpage/</url-pattern>
+            <url-pattern>/index.jsp</url-pattern>
+            <url-pattern>/userpage</url-pattern>
+            <url-pattern>/genres</url-pattern>
+            <url-pattern>/books</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>plain_user</role-name>
@@ -43,6 +46,10 @@
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>openapi</param-value>
         </init-param>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -51,4 +58,7 @@
         <url-pattern>/openapi/*</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+       <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

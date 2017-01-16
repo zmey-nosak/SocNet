@@ -3,8 +3,8 @@ package model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.joda.time.LocalDate;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -19,7 +19,7 @@ public class UserInfo {
     private String f_name;
     private String i_name;
     private LocalDate dob;
-    private String photo;
-    private int id;
+    private String photo_src;
+    private int user_id;
 
 }

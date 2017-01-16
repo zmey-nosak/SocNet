@@ -1,11 +1,11 @@
 body {
-    background: #EDEEF0;
+    background-color:#F7F7F7;
     color: #000000;
     font-family: Trebuchet MS, Arial, Times New Roman;
     font-size: 12px;
 }
 
-.dateheader {
+.mess_dateheader {
     background: white;
     margin: 0px;
     width: 300px;
@@ -14,20 +14,26 @@ body {
 
 }
 
-.container {
+.mess_container {
     background: white;
     margin: 0px;
     width: 300px;
     padding-bottom: 10px;
 }
+.mess_container_havent_read {
+    background: gray;
+    margin: 0px;
+    width: 300px;
+    padding-bottom: 10px;
+}
 
-.header {
+.mess_header {
     background: #838283;
     height: 200px;
     width: 900px;
 }
 
-.head {
+.mess_head {
     width: 260px;
     height: 15px;
     margin-left: 40px;
@@ -37,27 +43,30 @@ body {
     color: blue;
     background-color: transparent;
     font-size: 10px;
+    text-align: left;
 
 }
 
-.mainImage {
+.mess_mainImage {
     float: left;
+    text-align: left;
 }
 
-.message {
+.mess_message {
     background: #FFFFFF;
     margin-left: 50px;
     font-size: small;
     color: black;
     background-color: transparent;
+    text-align: left;
 }
 
-.container:hover {
+.mess_container:hover {
     background: aliceblue;
     white-space: normal; /* Обычный перенос текста */
 }
 
-.childImage {
+.mess_childImage {
     background: #333333;
     float: left;
     width: 20px;
@@ -66,16 +75,16 @@ body {
     margin-left: 2px;
 }
 
-.footer {
+.mess_footer {
     background: #838283;
     height: 180px;
     width: 900px;
 }
 
-.prokrutka {
-    height: 600px; /* высота нашего блока */
+.mess_prokrutka {
+    height:600px;
     background: #fff; /* цвет фона, белый */
     border: 1px solid #C1C1C1; /* размер и цвет границы блока */
     overflow-y: scroll; /* прокрутка по вертикали */
-    width:400px;
+    text-align:left;
 }

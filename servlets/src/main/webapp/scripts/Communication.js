@@ -18,5 +18,6 @@ class Communication {
         this.active = 1;
         this.date = new Date();
         this.partner = 0;
+
     }
 }

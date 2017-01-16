@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="model.User" %>
 <html>
 <head>
     <meta http-equiv=Content-Type content="text/html; charset=UTF-8" charset=UTF-8>
@@ -11,7 +13,19 @@
             font: 12px 'Verdana';
             COLOR: #FEDD8F;
         }
+        .a {
+            /* Делаю элементы блочными: */
+            display: block;
+            /* Задаю белый цвет. */
+            color: #FF9E26;
+            /* Задаю отступ 10px. */
+            padding: 10px;
+            /* Убираю форматирование*/
+            text-decoration: none;
+            /* Задаю цвет. */
+            background-color: transparent;
 
+        }
         .table {
             /*background: linear-gradient(#fa7f2d, #ff6600, #fa7f2d);*/
             border-color: #ff6600;
@@ -162,24 +176,18 @@
         }
     </style>
 
-    <script>
-        var worker = new SharedWorker("/shared.js");
-        worker.port.addEventListener("message", function(e) {
-            console.log("Got message: " + e.data);
-        }, false);
-        worker.port.start();
-        worker.port.postMessage("start");
-        worker.port.postMessage("tttt");
-    </script>
 </head>
+
 <body background=images/index.gif bgColor=#000000 text=#FCDD9B bgproperties=fixed>
-
-
 <table class="table">
+    <tr>
+        <td valign="top" height="15" align=right><a class="a" href="/logout">Выход</a>
+        </td>
+    </tr>
     <tr>
         <td height="80" align="left" valign="top" padding="0">
             <ul class="mmenuu">
-                <li><a href=/userpage/>Моя страница</a></li>
+                <li><a href="/userpage?userId=<%=((User)request.getSession().getAttribute("user")).getUser_id()%>">Моя страница</a></li>
                 <li><a href=#>Книги</a>
                     <ul class="ssubmenuu">
                         <li><a href="/authors/">По авторам</a></li>
@@ -199,12 +207,10 @@
                     </ul>
                 </li>
                 <li><a href=#>Книжные новинки</a></li>
-                <li><a href=/chat.xhtml>Чат</a></li>
-                <li><a href=/xz.html>Чат2</a></li>
             </ul>
         </td>
     </tr>
 </table>
 
 </body>
-<html>
+</html>

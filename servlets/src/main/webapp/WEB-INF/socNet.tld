@@ -18,7 +18,16 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-
+    <tag>
+        <name>menu</name>
+        <tag-class>tags.MenuTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>user_id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <function>
         <name>getList</name>
         <function-class>tags.List</function-class>
