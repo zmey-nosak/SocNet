@@ -5,10 +5,11 @@ import java.util.Collection;
 /**
  * Created by Echetik on 29.11.2016.
  */
+//Интерфейс для унификации поведения подключения JS скриптов
 public interface Printable {
-    String getString();
+    default String getString(){return null;}
 
-    String getScript();
+    default String getScript(){return null;}
 
     default String getPrintObject() {
         return "array" ;

@@ -23,7 +23,7 @@
         <tag-class>tags.MenuTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
-            <name>user_id</name>
+            <name>userId</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

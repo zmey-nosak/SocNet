@@ -42,7 +42,7 @@ public class Books extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         User user = (User) req.getSession().getAttribute("user");
-        req.setAttribute("userId",user.getUser_id());
+        req.setAttribute("userId", user.getUser_id());
         UserInfo userInfo = userDao.getUserInfo(user.getUser_id());
         Map<String, String[]> parameterMap = req.getParameterMap();
         Collection<Book> books = new ArrayList<>();
@@ -68,12 +68,16 @@ public class Books extends HttpServlet {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/books/books_detail.jsp");
             requestDispatcher.forward(req, resp);
         }
+        Collections.sort((ArrayList) books, ((o1, o2) -> {
+            Book b1 = (Book) o1;
+            Book b2 = (Book) o2;
+            return b1.getBook_name().compareTo(b2.getBook_name()) > 0 ? 1 : b1.getBook_name().equals(b2.getBook_name()) ? 0 : -1;
+        }));
+
         BooksListMini booksListMini = new BooksListMini(userInfo, books);
-        // req.setAttribute("books", books);
-        // req.setAttribute("booksList", userInfo);
         req.setAttribute("bookList", booksListMini);
         req.setCharacterEncoding("UTF-8");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/books/index.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/books/filterValues.jsp");
         requestDispatcher.forward(req, resp);
     }
 

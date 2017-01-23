@@ -3,7 +3,7 @@
 const WS_URI = "ws://localhost:8080/chat";
 
 class MyWebSocket {
-    constructor(/*responseElementId = "", contentElementId = "", eventElementId = ""*/) {
+    constructor() {
         this.webSocket = new WebSocket(WS_URI);
         this.webSocket.addEventListener("close",evt=>{
             console.log("websocketClose");

@@ -10,12 +10,6 @@ public class FriendRequest implements Printable {
         this.userId = userId;
     }
 
-
-    public String getString() {
-        return null;
-    }
-
-
     @Override
     public String getScript() {
         return "friendList = new FriendList(" + this.userId + ");" +

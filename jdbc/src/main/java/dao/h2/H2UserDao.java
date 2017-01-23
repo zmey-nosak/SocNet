@@ -46,11 +46,9 @@ public class H2UserDao implements UserDao {
     @Override
     @SneakyThrows
     public int registerUser(User user) {
-       // File file = new File("C:\\Users\\Echetik\\finalWebProject\\SocNet\\servlets\\src\\main\\webapp\\images\\rod.gif");
         int new_user_id;
         try (Connection connection = connectionSupplier.get();
              CallableStatement statement = connection.prepareCall("{ ? = CALL f_register_user(?,?,?,?,?,?)}");
-        //     FileInputStream fis = new FileInputStream(file)
         ) {
             statement.registerOutParameter(1, Types.INTEGER);
             statement.setString(2, user.getF_name());
@@ -58,7 +56,7 @@ public class H2UserDao implements UserDao {
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getPassword());
             statement.setDate(6, new java.sql.Date(user.getDob().toDate().getTime()));
-            statement.setString(7,"\common\rod.gif");
+            statement.setString(7,"\\common\\rod.gif");
             statement.execute();
             new_user_id = statement.getInt(1);
         }
@@ -130,7 +128,7 @@ public class H2UserDao implements UserDao {
     @Override
     @SneakyThrows
     public Collection<User> getFriends(int id) {
-        Collection<User> friends = new HashSet<>();
+        Collection<User> friends = new ArrayList<>();
         try (Connection connection = connectionSupplier.get();
              PreparedStatement statement = connection.prepareStatement("SELECT f.child_user_id,us.f_name,us.i_name, us.photo_src " +
                      "FROM FRIENDSHIP f " +

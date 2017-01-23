@@ -23,7 +23,7 @@ public class H2BookDao implements BookDao {
     @SneakyThrows
     @Override
     public Collection<Book> getAll() {
-        Collection<Book> books = new HashSet<>();
+        Collection<Book> books = new ArrayList<>();
         try (Connection connection = connectionSupplier.get();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT book_id, book_name, pages_count, author_id,year_name,image_src,genre_id FROM BOOKS")) {

@@ -15,16 +15,16 @@ import java.io.IOException;
 /**
  * Created by Echetik on 02.11.2016.
  */
+//Сервлет страницы пользователя
 @WebServlet(urlPatterns = {"/userpage"})
 public class User extends HttpServlet {
     UserDao userDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Printable printable = new UserPage(Integer.parseInt(req.getParameter("userId")));
         req.setAttribute("printable", printable);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/lists/list3.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userpage/userpage.jsp");
         requestDispatcher.forward(req, resp);
     }
 

@@ -47,24 +47,25 @@ public class UserResource implements JsonRestfulWebResource {
         this.request = request;
     }
 
-
+//Получение списка всех пользователей
     @GET
     public Response getAll() {
         final Collection<model.User> users = userDao.getAllUsers();
         return users.size() > 0 ? ok(users) : noContent();
     }
 
+    //Получение конкретного пользователя
     @GET
-    @Path("{id}")
-    public Response getUser(@PathParam("id") int id) {
-        final User user = userDao.getUser(id);
+    @Path("{userId}")
+    public Response getUser(@PathParam("userId") int userId) {
+        final User user = userDao.getUser(userId);
         if (user != null) {
             return this.ok(user);
         } else {
             return noContent();
         }
     }
-
+    //Получение текущего пользователя
     @GET
     @Path("owner")
     public Response getUser() {
@@ -81,20 +82,27 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
+    //Получение списка друзей пользователя
     @GET
-    @Path("{id}/friends")
-    public Response getFriends(@PathParam("id") int id) {
-        final Collection<model.User> users = userDao.getFriends(id);
+    @Path("{userId}/friends")
+    public Response getFriends(@PathParam("userId") int userId) {
+        final Collection<model.User> users = userDao.getFriends(userId);
         if (users != null) {
+            Collections.sort((ArrayList) users, ((o1, o2) -> {
+                User u1 = (User) o1;
+                User u2 = (User) o2;
+                return u1.getF_name().compareTo(u2.getF_name()) > 0 ? 1 : u1.getF_name().equals(u2.getF_name()) ? 0 : -1;
+            }));
             return this.ok(users);
         } else {
             return noContent();
         }
     }
 
+    //Получение списка диалогов пользователя
     @GET
-    @Path("{id}/communications")
-    public Response getCommunications(@PathParam("id") int id) {
+    @Path("{userId}/communications")
+    public Response getCommunications(@PathParam("userId") int id) {
         final Collection<UserCommunication> communications = userDao.getUserCommunications(id);
         Comparator<UserCommunication> comparator = new Comparator<UserCommunication>() {
             @Override
@@ -110,9 +118,10 @@ public class UserResource implements JsonRestfulWebResource {
         }
     }
 
+    //Получение аттрибутов диалога пользователя
     @GET
-    @Path("{id}/communications/{communication_id}")
-    public Response getUserCommunicationInfo(@PathParam("id") int id, @PathParam("id") int communication_id) {
+    @Path("{userId}/communications/{communication_id}")
+    public Response getUserCommunicationInfo(@PathParam("userId") int id, @PathParam("communication_id") int communication_id) {
         final Collection<UserCommunication> communications = userDao.getUserCommunications(id);
         Comparator<UserCommunication> comparator = new Comparator<UserCommunication>() {
             @Override
@@ -128,6 +137,7 @@ public class UserResource implements JsonRestfulWebResource {
         }
     }
 
+    //Получение списка сообщений диалога пользователя
     @GET
     @Path("{userId}/communications/{communicationId}/messages")
     public Response getMessages(@PathParam("userId") int user_id, @PathParam("communicationId") int communication_id) {
@@ -146,7 +156,7 @@ public class UserResource implements JsonRestfulWebResource {
         }
     }
 
-
+    //Получение аттрибутов пользователя
     @GET
     @Path("{userId}/userInfo")
     public Response getUserInfo(@PathParam("userId") int user_id) {
@@ -158,6 +168,7 @@ public class UserResource implements JsonRestfulWebResource {
         }
     }
 
+    //Получение списка книг пользователя
     @GET
     @Path("{userId}/books")
     public Response getUserBooks(@PathParam("userId") int user_id) {
@@ -169,7 +180,7 @@ public class UserResource implements JsonRestfulWebResource {
         }
     }
 
-
+    //Загрузка файла(изображения) пользователя
     @POST
     @Path("{userId}/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -196,7 +207,7 @@ public class UserResource implements JsonRestfulWebResource {
         return uploadedFileLocation;
     }
 
-
+    //Обновление аттрибутов сообщения
     @POST
     @Path("/updateMessages")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -204,6 +215,7 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
+    //Добавленике книги для пользователя
     @POST
     @Path("/books/{bookId}")
     public Response addBook(@PathParam("bookId") int bookId) {
@@ -220,7 +232,7 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
-
+    //Удаление друга из списка друзей пользователя
     @DELETE
     @Path("/deleteFriend/{friendId}")
     public Response getAll(@PathParam("friendId") int friendId) {
@@ -234,6 +246,7 @@ public class UserResource implements JsonRestfulWebResource {
         return this.ok(null);
     }
 
+    //Добавления друга в список друзей пользователя
     @POST
     @Path("/friends/add/{friendId}")
     public Response addFriend(@PathParam("friendId") int friendId) {
@@ -247,6 +260,7 @@ public class UserResource implements JsonRestfulWebResource {
         return this.ok(null);
     }
 
+    //Получение списка заявок на добавление в список друзей пользователя
     @GET
     @Path("friendRequests")
     public Response getFriendRequests() {
@@ -265,6 +279,7 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
+    //Получение списка собственных заявок в друзья пользователя
     @GET
     @Path("ownerRequests")
     public Response getOwnerRequests() {
@@ -283,6 +298,7 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
+    //Получение количества непрочитанных сообщений
     @GET
     @Path("unreadMessCnt")
     public Response getUnreadMessCnt() {
@@ -301,6 +317,7 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
+    //Получение аттрибутов заявок в друзья
     @GET
     @Path("friendReqDetail")
     public Response getFriendReqDetail() {
@@ -319,6 +336,7 @@ public class UserResource implements JsonRestfulWebResource {
         return noContent();
     }
 
+    //Активация заявки в друзья
     @POST
     @Path("{ownerId}/friendship/{friendId}/activate")
     public Response activateFriendship(@PathParam("ownerId") int userId, @PathParam("friendId") int friendId) {

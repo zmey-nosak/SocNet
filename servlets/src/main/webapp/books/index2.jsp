@@ -1,13 +1,7 @@
 <%@ page import="model.Author" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="model.Book" %>
-<%@ page import="java.util.ArrayList" %><%--
-  Created by IntelliJ IDEA.
-  User: Echetik
-  Date: 26.10.2016
-  Time: 21:36
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/WEB-INF/socNet.tld" prefix="socnet" %>
 <html>
@@ -29,7 +23,7 @@
     </script>
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu user_id="${userId}"></socnet:menu>
+<socnet:menu userId="${userId}"></socnet:menu>
 <jsp:useBean id="books" class="java.util.ArrayList" scope="request"/>
 <jsp:useBean id="userInfo" class="model.UserInfo" scope="request"/>
 
@@ -43,7 +37,6 @@
         </td>
         <td>
             <button onclick="addBook(<%=book.getBook_id()%>)">Добавить к себе</button>
-            <button>Написать рецензию</button>
         </td>
     </tr>
     <%}%>

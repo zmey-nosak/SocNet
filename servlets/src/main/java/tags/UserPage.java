@@ -12,11 +12,6 @@ public class UserPage implements Printable {
     }
 
     @Override
-    public String getString() {
-        return null;
-    }
-
-    @Override
     public String getScript() {
         return "userPage = new UserPage(" + this.userId + ");" +
                 "modalWindow = new ModalWindow();" ;

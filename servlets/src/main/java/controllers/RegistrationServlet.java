@@ -23,6 +23,7 @@ import java.util.Locale;
 /**
  * Created by Echetik on 05.11.2016.
  */
+//Сервлет формы регистрации
 @WebServlet("/register/")
 public class RegistrationServlet extends HttpServlet {
     UserDao userDao;
@@ -35,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String url = "/index.jsp";
+        String url = "/filterValues.jsp";
         String message = "";
         boolean isExistMistake = false;
         String action = req.getParameter("action");

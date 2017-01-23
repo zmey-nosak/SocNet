@@ -1,6 +1,7 @@
 <%@ taglib prefix="socnet" uri="http://SocNet.com" %>
 <%@ page import="model.Author" %>
-<%@ page import="java.util.HashSet" %><%--
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Echetik
   Date: 26.10.2016
@@ -19,12 +20,12 @@
     <link rel="stylesheet" href="/css/Menu.css">
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu user_id="${userId}"></socnet:menu>
-<jsp:useBean id="authors" class="java.util.HashSet" scope="request"/>
+<socnet:menu userId="${userId}"></socnet:menu>
+<jsp:useBean id="authors" class="java.util.ArrayList" scope="request"/>
 <table border="1">
     <th>Автор</th>
     <th>Дата рождения</th>
-    <% for (Author author : (HashSet<Author>) authors) {%>
+    <% for (Author author : (ArrayList<Author>) authors) {%>
     <tr>
         <td>
             <a text-decoration="none" href="/books?author_id=<%=String.valueOf(author.getAuthor_id())%>">
@@ -33,7 +34,7 @@
                         + (author.getO_name() == null ? "" : author.getO_name())%>
             </a>
         </td>
-        <td><%=author.getDob()%>
+        <td><%=author.getStringDob()%>
         </td>
     </tr>
     <%}%>

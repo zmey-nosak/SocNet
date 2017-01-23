@@ -11,7 +11,7 @@
 </head>
 <jsp:useBean id="book" class="model.Book" scope="request"/>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu user_id="${userId}"></socnet:menu>
+<socnet:menu userId="${userId}"></socnet:menu>
 <table border="1">
     <tr>
         <td valign="top">

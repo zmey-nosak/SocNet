@@ -39,12 +39,12 @@ public class Initializer implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext servletContext = sce.getServletContext();
-       // String pathToDbConfig = servletContext.getRealPath("/") + "WEB-INF/classes/";
         Supplier<Connection> connectionPool;
 
-        //= ConnectionPool.create(pathToDbConfig + "db.properties", pathToDbConfig + "schema.sql");
         try {
+            //инициализация пула соединений с БД
             connectionPool = getConnectionSupplier();
+
             AuthorDao authorDao = new H2AuthorDao(connectionPool);
             BookDao bookDao = new H2BookDao(connectionPool);
             GenreDao genreDao = new H2GenreDao(connectionPool);
@@ -53,6 +53,7 @@ public class Initializer implements ServletContextListener {
             servletContext.setAttribute("bookDao", bookDao);
             servletContext.setAttribute("genreDao", genreDao);
             servletContext.setAttribute("userDao", userDao);
+
         }catch (Exception e){
             e.printStackTrace();
         }

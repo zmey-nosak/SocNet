@@ -26,19 +26,9 @@ public class BooksListMini implements Printable {
             out.append("<td><img src=\"").append(book.getImage_src()).append("\" width=\"60\" height=\"100\"></td>");
             out.append("<td><button onclick=\"addBook(").append(book.getBook_id()).append(")\"");
             out.append("<td>").append(new String("Добавить к себе".getBytes(), Charset.forName("utf-8"))).append("</button>");
-            out.append("<button>").append(new String("Написать рецензию".getBytes(), Charset.forName("utf-8"))).append("</button></td></tr>");
+            out.append("</td></tr>");
         }
         return out.toString();
 
-    }
-
-    @Override
-    public String getScript() {
-        return null;
-    }
-
-    @Override
-    public String getPrintObject() {
-        return null;
     }
 }

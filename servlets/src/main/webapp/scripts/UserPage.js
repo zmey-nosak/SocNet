@@ -72,8 +72,8 @@ class UserPage {
             } else {
 
                 var edit_btn = document.createElement("input");
-                edit_btn.type = "file";
-                edit_btn.name = "file";
+                edit_btn.setAttribute("type","file");
+                edit_btn.setAttribute("name","file");
                 edit_btn.addEventListener("change", evt=> {
                     var form = new FormData();
                     var upload_file = edit_btn.files[0];
@@ -114,24 +114,23 @@ class UserPage {
                 i = i + 1;
                 switch (i) {
                     case 1:
-                        div.className = 'user_friend_photo_f';
+                        div.setAttribute("class","user_friend_photo_f")
                         break;
                     case 2:
-                        div.className = 'user_friend_photo_l';
+                        div.setAttribute("class","user_friend_photo_l")
                         break;
                     case 3:
-                        div.className = 'user_friend_photo';
+                        div.setAttribute("class","user_friend_photo")
                         break;
                 }
                 var img = document.createElement("img");
-                img.src = "/files/" + friend.photo_src;
-                img.width = 50;
-                img.height = 60;
+                img.setAttribute("src","/files/" + friend.photo_src);
+                img.setAttribute("width",50);
+                img.setAttribute("height",60);
                 var br = document.createElement("br");
                 var a = document.createElement("a");
-                a.href = '/userpage?userId=' + friend.user_id;//07.01 add instead of comment
-                a.align = 'center';
-                /*a.addEventListener("click", evt=>userPage.load(friend.user_id));*/
+                a.setAttribute("href",'/userpage?userId=' + friend.user_id);
+                a.setAttribute("align",'center');
                 a.appendChild(document.createTextNode(friend.f_name + " " + friend.i_name));
                 div.appendChild(img);
                 div.appendChild(br);
@@ -148,15 +147,6 @@ class UserPage {
 
 
         this.targetElement.appendChild(fr_container);
-
-        /*  var additionalColumn = document.getElementById('additionalColumn');
-         additionalColumn.innerHTML = '';
-         var div = document.createElement("div");
-         div.appendChild(document.createTextNode(userInfo.f_name + " " + userInfo.i_name));
-         additionalColumn.appendChild(div);
-         */
-
-
         var additional = document.getElementById('additionalColumn');
         additional.innerHTML = '';
         var user_additional_info = document.createElement("div");
@@ -176,13 +166,13 @@ class UserPage {
             userInfo.user_books.forEach(
                 book=> {
                     var img = document.createElement("img");
-                    img.className = "user_book_img";
-                    img.src = book.image_src;
+                    img.setAttribute("class","user_book_img")
+                    img.setAttribute("src",book.image_src)
                     var div_clear = document.createElement("div");
-                    div_clear.className = "clear"
+                    div_clear.setAttribute("class","clear")
                     div.appendChild(img);
                     var a = document.createElement("a");
-                    a.href = "#";
+                    a.setAttribute("href","#")
                     a.appendChild(document.createTextNode(book.book_name))
                     div.appendChild(a);
                     div.appendChild(div_clear);

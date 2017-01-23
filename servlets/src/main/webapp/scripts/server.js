@@ -119,8 +119,6 @@ class Server {
     static getTextAsyncDelete(path, resolve, reject, data = null) {
         const /** @type XMLHttpRequest */ xhr = new XMLHttpRequest();
         xhr.open(METHOD_DELETE, BASE_URL + path, true);
-        //  xhr.setRequestHeader("Content-Type", "application/json");
-        //noinspection SpellCheckingInspection
         xhr.onreadystatechange = () => {
             if (xhr.readyState !== 4) return;
             if (xhr.status === 200 || xhr.status === 204)

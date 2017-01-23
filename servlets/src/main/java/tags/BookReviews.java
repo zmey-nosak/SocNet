@@ -21,23 +21,12 @@ public class BookReviews implements Printable {
 
     public String getString() {
         StringBuffer out = new StringBuffer();
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd.MM.yyyy HH:mm");
         for (Review review : reviews) {
             out.append("<tr><td><img src=\"/files/").append(review.getPhoto_src()).append("\" width=\"60\" height=\"100\"/><br>")
                     .append("<a href=/userpage?userId=").append(review.getUser_id()).append(">").append(review.getF_name() + " " + review.getI_name()).append("</a><br>")
-                    .append(review.getDate().toString(dtf) + "</td>");
+                    .append(review.getStringDate() + "</td>");
             out.append("<td>").append(review.getReview()).append("</td></tr>");
         }
         return out.toString();
-    }
-
-    @Override
-    public String getScript() {
-        return null;
-    }
-
-    @Override
-    public String getPrintObject() {
-        return null;
     }
 }

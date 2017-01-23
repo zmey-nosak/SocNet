@@ -18,6 +18,7 @@ import java.util.Map;
 /**
  * Created by Echetik on 02.11.2016.
  */
+//Сервлет сообщений
 @WebServlet("/messages")
 public class Messages extends HttpServlet {
     UserDao userDao;
@@ -36,7 +37,7 @@ public class Messages extends HttpServlet {
         }
         req.setAttribute("printable", printable);
 
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/lists/list3.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userpage/userpage.jsp");
         requestDispatcher.forward(req, resp);
     }
 

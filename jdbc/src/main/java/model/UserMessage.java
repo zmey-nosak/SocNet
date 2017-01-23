@@ -34,7 +34,6 @@ public class UserMessage {
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
     public DateTime getDate() {
         return this.date;
     }

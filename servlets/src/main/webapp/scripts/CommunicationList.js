@@ -67,7 +67,6 @@ class CommunicationList {
         /** @type HTMLLinkElement */var a = document.createElement("a");
         var txt_node2 = document.createTextNode(communication.message);
         a.setAttribute("href", "/messages?userId=" + this.owner_id + "&communicationId=" + communication.communication_id + "&partnerId=" + communication.partner);
-        //a.setAttribute("onclick", "messageList.load(" + communication.communication_id + ", " + this.owner_id + ", " + communication.partner + ")");
         a.appendChild(txt_node2);
         div_mess.appendChild(a);
         div_container.appendChild(div_mess);

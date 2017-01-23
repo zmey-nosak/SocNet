@@ -7,20 +7,6 @@
  * @interface
  */
 class MessageList {
-    /* constructor(soket) {
-     this.identification = "messages";
-     this.socket = soket;
-     this.communication_id = 0;
-     this.targetElement = "";
-     this.tmpuser = 0;
-     this.tmpdate = new Date();
-     this.b = false;
-     this.owner = {};
-     this.partner = {};
-     this.socket.webSocket.addEventListener("message", evt=> {
-     this.handle(evt)
-     }, false);
-     }*/
 
     constructor(soket, communicationId, ownerId, partnerId) {
         this.identification = "messages";
@@ -60,9 +46,6 @@ class MessageList {
                         .setMessagesForUpdate(mess_for_update);
                     this.socket.doSend(JSON.stringify(mess));
                 }
-
-                /*   var mess = new TechnicalMessage(1, 0, this.partner.user_id, '', null, 0, mess_for_update);
-                 this.socket.doSend(JSON.stringify(mess));*/
             }
         } else if (obj.type == 1) {
             var mass = obj.messages_for_update.split(',');
@@ -73,16 +56,6 @@ class MessageList {
                         div.setAttribute("class", "mess_container");
                 })
             }, 1000);
-
-            /*  var el = document.getElementById(("newMess"));
-             if (el != null && el.innerHTML.replace(/\s/g, '').length) {
-             var a = Number(el.innerHTML);
-             el.innerHTML = '';
-             a = a - (mass.length - 1);
-             if (a > 0) {
-             el.appendChild(document.createTextNode(a));
-             }
-             }*/
         }
     }
 

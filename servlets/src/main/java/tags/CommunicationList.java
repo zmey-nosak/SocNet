@@ -30,11 +30,6 @@ public class CommunicationList implements Printable {
         this.partnerId = partnerId;
     }
 
-    public String getString() {
-        return null;
-    }
-
-
     @Override
     public String getScript() {
         if (communicationId != 0 && partnerId != 0) {

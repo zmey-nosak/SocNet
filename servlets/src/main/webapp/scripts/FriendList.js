@@ -17,7 +17,6 @@ class FriendList {
             }
         }, false);
         this.flag = 0;//0-sendMessage, 1-activateFriendShip
-        // this.print('response_element');
     }
 
     init(id) {

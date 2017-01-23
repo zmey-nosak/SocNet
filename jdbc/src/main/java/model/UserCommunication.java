@@ -27,6 +27,7 @@ public class UserCommunication {
     public String getOwnerPhoto_src() {
         return ownerPhoto_src;
     }
+
     public int getCommunication_id() {
         return this.communication_id;
     }

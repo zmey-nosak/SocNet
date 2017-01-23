@@ -58,6 +58,5 @@ public interface UserDao {
     String getPsw(int user_id);
 
     void updateProfile(User user);
-    //Collection<UserCommunication> getUserCommunications(long user_id);
 
 }

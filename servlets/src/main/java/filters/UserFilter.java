@@ -17,7 +17,8 @@ import java.util.Arrays;
 /**
  * Created by Echetik on 05.11.2016.
  */
-@WebFilter(urlPatterns = {"/index.jsp", "/books", "/*"})
+//Фильтр на сервлеты для первоначальной иницииализации аттрибутов сессии
+@WebFilter(urlPatterns = {"/index.jsp", "/books", "/authors/","/genres/"})
 public class UserFilter implements HttpFilter {
     UserDao userDao;
 
@@ -29,6 +30,7 @@ public class UserFilter implements HttpFilter {
             String email = request.getRemoteUser();
             user = userDao.getUserIdByEmail(email);
             request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("userId", user.getUser_id());
             if (request.getSession().getAttribute("locale") == null) {
                 request.getSession().setAttribute("locale", "rus");
             }

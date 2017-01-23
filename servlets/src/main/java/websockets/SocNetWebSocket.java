@@ -37,7 +37,7 @@ public class SocNetWebSocket {
     }
 
     @OnMessage
-    public void handleMessage(String message, Session userSession/*, @PathParam("user_id")String user_id*/) {
+    public void handleMessage(String message, Session userSession) {
 
         String user_id_from = (String) userSession.getUserProperties().get("user_id");
         UserDao userDao = (UserDao) userSession.getUserProperties().get("userDao");
@@ -67,8 +67,6 @@ public class SocNetWebSocket {
                         sendMessOnlineUser(mess.getUser_id_to(), message);
                         break;
                 }
-
-                //    userSession.getBasicRemote().sendText(message);
             } catch (Exception e) {
                 e.printStackTrace();
             }

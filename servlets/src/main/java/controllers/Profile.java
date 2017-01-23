@@ -25,6 +25,7 @@ import java.util.Locale;
 /**
  * Created by Echetik on 11.01.2017.
  */
+//Сервлет редактирования профиля пользователя
 @WebServlet("/profile")
 public class Profile extends HttpServlet {
     UserDao userDao;

@@ -10,6 +10,7 @@ import model.Genre;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Supplier;
@@ -24,7 +25,7 @@ public class H2GenreDao implements GenreDao {
     @SneakyThrows
     @Override
     public Collection<Genre> getAll() {
-        Collection<Genre> genres = new HashSet<>();
+        Collection<Genre> genres = new ArrayList<>();
         try (Connection connection = connectionSupplier.get();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT genre_id, genre_name FROM genres")) {
