@@ -60,7 +60,6 @@ public class RegistrationServlet extends HttpServlet {
                 isExistMistake = true;
 
             }
-
             user.setPassword(req.getParameter("password"));
             if (userDao.emailExists(user.getEmail())) {
                 message += "This email address already exists.<br>" +

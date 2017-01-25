@@ -11,7 +11,7 @@
 </head>
 <jsp:useBean id="book" class="model.Book" scope="request"/>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu userId="${userId}"></socnet:menu>
+<jsp:directive.include file="/index.jsp"/>
 <table border="1">
     <tr>
         <td valign="top">

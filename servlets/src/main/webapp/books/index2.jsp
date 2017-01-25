@@ -2,7 +2,7 @@
 <%@ page import="java.util.HashSet" %>
 <%@ page import="model.Book" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="/WEB-INF/socNet.tld" prefix="socnet" %>
 <html>
 <head>
@@ -23,7 +23,7 @@
     </script>
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu userId="${userId}"></socnet:menu>
+<jsp:directive.include file="/index.jsp"/>
 <jsp:useBean id="books" class="java.util.ArrayList" scope="request"/>
 <jsp:useBean id="userInfo" class="model.UserInfo" scope="request"/>
 

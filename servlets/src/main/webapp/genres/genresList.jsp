@@ -16,7 +16,7 @@
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
 <jsp:useBean id="genres" class="java.util.ArrayList" scope="request"/>
-<socnet:menu userId="${userId}"></socnet:menu>
+<jsp:directive.include file="/index.jsp"/>
 <% for (Genre genre : (ArrayList<Genre>) genres) {%>
 <ul>
     <li><a href="/books?genre_id=<%=String.valueOf(genre.getGenre_id())%>"><%=genre.getGenre_name()%>

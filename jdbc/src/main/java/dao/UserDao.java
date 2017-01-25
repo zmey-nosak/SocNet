@@ -59,4 +59,6 @@ public interface UserDao {
 
     void updateProfile(User user);
 
+    boolean checkLogin(String login, String password);
+
 }

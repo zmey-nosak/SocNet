@@ -1,6 +1,7 @@
-<%@ taglib prefix="socnet" uri="http://SocNet.com" %>
+﻿<%@taglib prefix="socnet" uri="http://SocNet.com" %>
 <%@ page import="model.Author" %>
 <%@ page import="java.util.HashSet" %>
+
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Echetik
@@ -20,8 +21,9 @@
     <link rel="stylesheet" href="/css/Menu.css">
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu userId="${userId}"></socnet:menu>
+
 <jsp:useBean id="authors" class="java.util.ArrayList" scope="request"/>
+<jsp:directive.include file="/index.jsp"/>
 <table border="1">
     <th>Автор</th>
     <th>Дата рождения</th>

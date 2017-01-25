@@ -1,5 +1,5 @@
 <%@ page import="model.User" %>
-<%@ page contentType="text/html;charset=utf-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="/WEB-INF/socNet.tld" prefix="socnet" %>
 <html>
 <head>
@@ -28,7 +28,7 @@
     </script>
 </head>
 <body background=/images/index.gif style="color:#FF9E26">
-<socnet:menu userId="${userId}"></socnet:menu>
+<jsp:directive.include file="/index.jsp"/>
 <table border="1">
     ${socnet:getList(requestScope["bookList"])}
 </table>

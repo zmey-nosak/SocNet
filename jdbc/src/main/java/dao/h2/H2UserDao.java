@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 public class H2UserDao implements UserDao {
     private Supplier<Connection> connectionSupplier;
-    private final String STORAGE_PATH = "D:\\user_images\\" ;
+    private final String STORAGE_PATH = "D:\\user_images\\";
 
     @SneakyThrows
     public User getUserIdByEmail(String email) {
@@ -56,7 +56,7 @@ public class H2UserDao implements UserDao {
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getPassword());
             statement.setDate(6, new java.sql.Date(user.getDob().toDate().getTime()));
-            statement.setString(7,"\\common\\rod.gif");
+            statement.setString(7, "\\common\\avatar.gif");
             statement.execute();
             new_user_id = statement.getInt(1);
         }
@@ -159,7 +159,7 @@ public class H2UserDao implements UserDao {
     public UserInfo getUserInfo(int id) {
 
         Collection<User> friends = new HashSet<>();
-        Collection<Book> books = new HashSet<>();
+        Collection<Book> books = new ArrayList<>();
         UserInfo userInfo = new UserInfo();
         try (Connection con = connectionSupplier.get();
              PreparedStatement statement = con.prepareStatement("SELECT * FROM get_user_info(?)")) {
@@ -199,6 +199,12 @@ public class H2UserDao implements UserDao {
                                     0));
                         }
                     }
+                    Collections.sort((ArrayList) books, ((o1, o2) -> {
+                        Book b1 = (Book) o1;
+                        Book b2 = (Book) o2;
+                        return b1.getBook_name().compareTo(b2.getBook_name()) > 0 ? 1 : b1.getBook_name().equals(b2.getBook_name()) ? 0 : -1;
+                    }));
+
                     userInfo.setUser_books(books);
                 }
                 if (resultSet.next()) {
@@ -310,7 +316,7 @@ public class H2UserDao implements UserDao {
              PreparedStatement statement = connection.prepareStatement("SELECT u.user_id, u.f_name, u.i_name,u.photo_src " +
                      "                                                  FROM user_communications uc" +
                      "                                                  JOIN USERS u ON u.user_id=uc.user_id" +
-                     "                                                   where uc.user_id!=? and communication_id=?")) {
+                     "                                                   where uc.user_id!=? and uc.communication_id=?")) {
             statement.setInt(1, user_id);
             statement.setInt(2, communication_id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -556,6 +562,25 @@ public class H2UserDao implements UserDao {
             statement.setString(5, user.getEmail());
             statement.setInt(6, user.getUser_id());
             statement.execute();
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public boolean checkLogin(String login, String password) {
+        try (Connection connection = connectionSupplier.get();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT user_id" +
+                             " FROM USERS WHERE email=? AND password=?");) {
+
+            statement.setString(1, login);
+            statement.setString(2, password);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }

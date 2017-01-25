@@ -37,24 +37,36 @@ public class MenuTag extends TagSupport {
 
     @SneakyThrows
     public int doStartTag() {
-        String str = "<table class=\"table\">" +
-                "<tr><td valign=\"top\" height=\"15\" align=right><a class=\"a\" href=\"/logout\">Выход</a></td></tr><tr>" +
-                "<td height=\"80\" align=\"left\" valign=\"top\" padding=\"0\">" +
-                "<ul class=\"mmenuu\"><li><a href=\"/userpage?userId=" + this.userId + "\">" + textContent.getString("myPage") + "</a></li>" +
-                "<li><a href =#>Книги</a><ul class=\"ssubmenuu\">" +
-                "<li><a href = \"/authors/\">По авторам</a></li>" +
-                "<li><a href = \"/genres/\">По жанрам</a></li></ul>" +
-                "</li><li><a href =#>Библиотеки</a><ul class=\"ssubmenuu\">" +
-                "<li><a href =\"#\">Онлайн</a></li>" +
-                "<li><a href =\"#\">В городе</a></li>" +
-                "</ul></li><li><a href =\"#\">Рецензии</a>" +
-                "<ul class=\"ssubmenuu\"><li ><a href =#>По авторам</a></li>" +
-                "<li><a href =\"#\"> По книгам</a></li>" +
-                "</ul></li><li><a href =#>Книжные новинки</a></li>" +
-                "</ul></td></tr></table>" ;
-        byte[] bytes = str.getBytes();
-        String utf = new String(bytes, "UTF-8");
-        pageContext.getOut().print(utf);
+        StringBuffer sb = new StringBuffer("");
+        sb.append("<table class=\"table\"><tr><td valign=\"top\" height=\"15\" align=right><a class=\"a\" href=\"/logout\">")
+                .append(textContent.getString("exit"))
+                .append("</a></td></tr><tr>")
+                .append("<td height=\"80\" align=\"left\" valign=\"top\" padding=\"0\">")
+                .append("<ul class=\"mmenuu\"><li><a href=\"/userpage?userId=")
+                .append(this.userId + "\">")
+                .append(textContent.getString("myPage"))
+                .append("</a></li><li><a href =#>")
+                .append(textContent.getString("books"))
+                .append("</a><ul class=\"ssubmenuu\"><li><a href = \"/authors/\">")
+                .append(textContent.getString("byAuthors"))
+                .append("</a></li><li><a href = \"/genres/\">")
+                .append(textContent.getString("byGenres"))
+                .append("</a></li></ul></li><li><a href =#>")
+                .append(textContent.getString("libraries"))
+                .append("</a><ul class=\"ssubmenuu\"><li><a href =\"#\">")
+                .append(textContent.getString("online"))
+                .append("</a></li><li><a href =\"#\">")
+                .append(textContent.getString("city"))
+                .append("</a></li></ul></li><li><a href =\"#\">")
+                .append(textContent.getString("reviews"))
+                .append("</a><ul class=\"ssubmenuu\"><li ><a href =#>")
+                .append(textContent.getString("byAuthors"))
+                .append("</a></li><li><a href =\"#\">")
+                .append(textContent.getString("byBooks"))
+                .append("</a></li></ul></li><li><a href =#>")
+                .append(textContent.getString("newBooks"))
+                .append("</a></li></ul></td></tr></table>");
+        pageContext.getOut().print(sb.toString());
         return SKIP_BODY;
     }
 }
