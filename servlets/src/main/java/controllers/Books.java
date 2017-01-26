@@ -60,7 +60,6 @@ public class Books extends HttpServlet {
                 }
             };
             Collections.sort((ArrayList) reviews, comparator);
-
             BookReviews bookReviews = new BookReviews(reviews);
             req.setAttribute("book", book);
             req.setAttribute("bookReviews", bookReviews);

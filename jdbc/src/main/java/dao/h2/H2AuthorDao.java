@@ -1,32 +1,31 @@
 package dao.h2;
 
-import common.ConnectionPool;
 import dao.AuthorDao;
-import javafx.collections.transformation.SortedList;
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 import model.Author;
 import org.joda.time.LocalDate;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.function.Supplier;
 
 /**
  * Created by Echetik on 26.10.2016.
  */
 @Log
-@AllArgsConstructor
 public class H2AuthorDao implements AuthorDao {
 
     private Supplier<Connection> connectionSupplier;
+
+    @java.beans.ConstructorProperties({"connectionSupplier"})
+    public H2AuthorDao(Supplier<Connection> connectionSupplier) {
+        this.connectionSupplier = connectionSupplier;
+    }
+
     @SneakyThrows
     @Override
     public Collection<Author> getAll() {

@@ -7,15 +7,12 @@ import dao.UserDao;
  */
 public class RegisterLogic {
     UserDao userDao;
-
     public RegisterLogic(UserDao userDao) {
         this.userDao = userDao;
     }
-
     public boolean checkLogin(String login) {
         return userDao.emailExists(login);
     }
-
     public int registerUser(model.User user) {
         return userDao.registerUser(user);
     }

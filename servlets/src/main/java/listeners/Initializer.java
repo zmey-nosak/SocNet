@@ -63,7 +63,6 @@ public class Initializer implements ServletContextListener {
         Context initContext=new InitialContext();
         Context envContext=(Context)initContext.lookup("java:/comp/env");
         DataSource dataSource=(DataSource)envContext.lookup("jdbc/myDb");
-
         return () -> {
             try {
                 return dataSource.getConnection();
