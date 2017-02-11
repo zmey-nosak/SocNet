@@ -3,9 +3,9 @@
  */
 'use strict'
 class UserPage {
-    constructor(user_id) {
+    constructor(userId) {
         this.UserInfo = {};
-        this.load(user_id);
+        this.load(userId);
     }
     getElement() {
         return this.div_content;
@@ -21,31 +21,31 @@ class UserPage {
         var img = document.createElement("img");
         img.id = "userImage";
         //img.src = "data:image/jpg;base64," + userInfo.photo;
-        img.src = "/files/" + userInfo.photo_src;
+        img.src = "/files/" + userInfo.photoSrc;
         img.width = 100;
         img.height = 150;
         div_us_photo.appendChild(img);
         Server.getOwner().then(owner=> {
-            if (owner != null && owner.user_id != userInfo.user_id) {
+            if (owner != null && owner.userId != userInfo.userId) {
                 var edit_btn1 = document.createElement("input");
                 edit_btn1.type = "button";
                 edit_btn1.value = "Написать сообщение";
-                edit_btn1.addEventListener("click", evt=>modalWindow.modalShow(userInfo, owner.user_id), true);
+                edit_btn1.addEventListener("click", evt=>modalWindow.modalShow(userInfo, owner.userId), true);
                 div_us_photo.appendChild(edit_btn1);
-                if (owner.user_friends.find(fr=> {
-                        return fr.user_id == userInfo.user_id
+                if (owner.userFriends.find(fr=> {
+                        return fr.userId == userInfo.userId
                     }) == null) {
-                    if (ownerRequest.find(req=>req == userInfo.user_id) == null) {
+                    if (ownerRequest.find(req=>req == userInfo.userId) == null) {
                         var edit_btn2 = document.createElement("input");
                         edit_btn2.type = "button";
                         edit_btn2.value = "Добавить в друзья";
                         div_us_photo.appendChild(edit_btn2);
                         edit_btn2.addEventListener("click", evt=> {
-                            Server.addFriend(userInfo.user_id).then(t=> {
-                                    var mess = new TechnicalMessage();//0, this.owner.user_id, this.partner.user_id, textarea.value, new Date(),0,"",0,1);
+                            Server.addFriend(userInfo.userId).then(t=> {
+                                    var mess = new TechnicalMessage();//0, this.owner.userId, this.partner.userId, textarea.value, new Date(),0,"",0,1);
                                     mess.setTypeMessage(2)
-                                        .setUserFrom(owner.user_id)
-                                        .setUserTo(userInfo.user_id);
+                                        .setUserFrom(owner.userId)
+                                        .setUserTo(userInfo.userId);
                                     socket.doSend(JSON.stringify(mess));
                                     location.reload();
                                 }
@@ -63,7 +63,7 @@ class UserPage {
                     edit_btn2.type = "button";
                     edit_btn2.value = "Удалить из друзей";
                     edit_btn2.addEventListener("click", evt=> {
-                        Server.deleteFriend(userInfo.user_id).then(t=> {
+                        Server.deleteFriend(userInfo.userId).then(t=> {
                             location.reload()
                         });
                     });
@@ -78,8 +78,8 @@ class UserPage {
                     var form = new FormData();
                     var upload_file = edit_btn.files[0];
                     form.append("file", upload_file);
-                    Server.putUserPhoto(userInfo.user_id, form);
-                    Server.getUser(owner.user_id).then(own=> {
+                    Server.putUserPhoto(userInfo.userId, form);
+                    Server.getUser(owner.userId).then(own=> {
                         location.reload();
                     });
 
@@ -100,7 +100,7 @@ class UserPage {
         this.targetElement.appendChild(div_us_photo);
 
         var fr_container = document.createElement("div");
-        fr_container.className = "user_friends";
+        fr_container.className = "userFriends";
 
         var div_fr_header = document.createElement("div");
         div_fr_header.className = 'user_friend'
@@ -108,7 +108,7 @@ class UserPage {
         fr_container.appendChild(div_fr_header);
 
         var i = 0;
-        userInfo.user_friends.forEach(
+        userInfo.userFriends.forEach(
             friend=> {
                 var div = document.createElement("div");
                 i = i + 1;
@@ -124,14 +124,14 @@ class UserPage {
                         break;
                 }
                 var img = document.createElement("img");
-                img.setAttribute("src","/files/" + friend.photo_src);
+                img.setAttribute("src","/files/" + friend.photoSrc);
                 img.setAttribute("width",50);
                 img.setAttribute("height",60);
                 var br = document.createElement("br");
                 var a = document.createElement("a");
-                a.setAttribute("href",'/userpage?userId=' + friend.user_id);
+                a.setAttribute("href",'/userpage?userId=' + friend.userId);
                 a.setAttribute("align",'center');
-                a.appendChild(document.createTextNode(friend.f_name + " " + friend.i_name));
+                a.appendChild(document.createTextNode(friend.surname + " " + friend.name));
                 div.appendChild(img);
                 div.appendChild(br);
                 div.appendChild(a);
@@ -152,28 +152,28 @@ class UserPage {
         var user_additional_info = document.createElement("div");
         user_additional_info.className = "user_info";
         var userfio = document.createElement("div");
-        userfio.appendChild(document.createTextNode(userInfo.f_name + " " + userInfo.i_name));
+        userfio.appendChild(document.createTextNode(userInfo.surname + " " + userInfo.name));
         user_additional_info.appendChild(userfio);
         var div = document.createElement("div");
-        div.appendChild(document.createTextNode(userInfo.dob.toLocaleDateString()));
+        div.appendChild(document.createTextNode(userInfo.dateOfBirth.toLocaleDateString()));
         user_additional_info.appendChild(div);
         additional.appendChild(user_additional_info);
 
 
-        if (userInfo.user_books.length > 0) {
+        if (userInfo.userBooks.length > 0) {
             div = document.createElement("div");
-            div.className = "user_books";
-            userInfo.user_books.forEach(
+            div.className = "userBooks";
+            userInfo.userBooks.forEach(
                 book=> {
                     var img = document.createElement("img");
                     img.setAttribute("class","user_book_img")
-                    img.setAttribute("src",book.image_src)
+                    img.setAttribute("src",book.imageSrc)
                     var div_clear = document.createElement("div");
                     div_clear.setAttribute("class","clear")
                     div.appendChild(img);
                     var a = document.createElement("a");
                     a.setAttribute("href","#")
-                    a.appendChild(document.createTextNode(book.book_name))
+                    a.appendChild(document.createTextNode(book.bookName))
                     div.appendChild(a);
                     div.appendChild(div_clear);
 
@@ -182,8 +182,8 @@ class UserPage {
         }
     }
 
-    load(user_id) {
-        Server.getUserInfo(user_id).then(userInf=> {
+    load(userId) {
+        Server.getUserInfo(userId).then(userInf=> {
             this.print(userInf);
         });
 

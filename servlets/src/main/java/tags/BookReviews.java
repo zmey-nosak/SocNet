@@ -1,12 +1,7 @@
 package tags;
 
-import model.Book;
 import model.Review;
-import model.UserInfo;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.nio.charset.Charset;
 import java.util.Collection;
 
 /**
@@ -22,8 +17,8 @@ public class BookReviews implements Printable {
     public String getString() {
         StringBuffer out = new StringBuffer();
         for (Review review : reviews) {
-            out.append("<tr><td><img src=\"/files/").append(review.getPhoto_src()).append("\" width=\"60\" height=\"100\"/><br>")
-                    .append("<a href=/userpage?userId=").append(review.getUser_id()).append(">").append(review.getF_name() + " " + review.getI_name()).append("</a><br>")
+            out.append("<tr><td><img src=\"/files/").append(review.getPhotoSrc()).append("\" width=\"60\" height=\"100\"/><br>")
+                    .append("<a href=/userpage?userId=").append(review.getUserId()).append(">").append(review.getSurname() + " " + review.getName()).append("</a><br>")
                     .append(review.getStringDate() + "</td>");
             out.append("<td>").append(review.getReview()).append("</td></tr>");
         }

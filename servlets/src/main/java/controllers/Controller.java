@@ -61,7 +61,6 @@ public class Controller extends HttpServlet
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", MessageManager.getInstance().getProperty(MessageManager.IO_EXCEPTION_ERROR_MESSAGE));
-
             page = ConfigurationManager.getInstance().getProperty(ConfigurationManager.ERROR_PAGE_PATH);
         }
 //вызов страницы ответа на запрос

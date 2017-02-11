@@ -18,9 +18,9 @@ public class RegisterCommand implements Command {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
     private static final String PARAM_NAME_CONFIRM_PASSWORD = "confirm_password";
-    private static final String PARAM_NAME_F_NAME = "f_name";
-    private static final String PARAM_NAME_I_NAME = "i_name";
-    private static final String PARAM_NAME_DOB = "dob";
+    private static final String PARAM_NAME_F_NAME = "surname";
+    private static final String PARAM_NAME_I_NAME = "name";
+    private static final String PARAM_NAME_DOB = "dateOfBirth";
 
     public String execute(HttpServletRequest request,
                           HttpServletResponse response)
@@ -39,8 +39,8 @@ public class RegisterCommand implements Command {
         RegisterLogic registerLogic = new RegisterLogic((UserDao) request.getServletContext().getAttribute("userDao"));
         model.User user = new User();
         user.setEmail(login);
-        user.setI_name(iName);
-        user.setF_name(fName);
+        user.setName(iName);
+        user.setSurname(fName);
         String messages = "";
         if (registerLogic.checkLogin(login)) {
             messages += "Login already used<br/>";
@@ -52,7 +52,7 @@ public class RegisterCommand implements Command {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("d.MM.yyyy");
             formatter = formatter.withLocale(request.getLocale());  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
             LocalDate date = formatter.parseLocalDate(dob);
-            user.setDob(date);
+            user.setDateOfBirth(date);
         } catch (Exception ex) {
             messages += "Date is not valid.<br\\>";
         }
@@ -61,7 +61,7 @@ public class RegisterCommand implements Command {
             int userId = registerLogic.registerUser(user);
             User registeredUser = registerLogic.getRegisteredUser(userId);
             request.getSession().setAttribute("user", registeredUser);
-            request.getSession().setAttribute("userId", registeredUser.getUser_id());
+            request.getSession().setAttribute("userId", registeredUser.getUserId());
             if (request.getSession().getAttribute("locale") == null) {
                 request.getSession().setAttribute("locale", "rus");
             }

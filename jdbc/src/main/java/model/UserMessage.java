@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 @Setter
 public class UserMessage {
     private String message;
-    private int user_id;
+    private int userId;
     private int active;
     private DateTime date;
     private int groupNum;
@@ -25,8 +25,8 @@ public class UserMessage {
         return this.message;
     }
 
-    public int getUser_id() {
-        return this.user_id;
+    public int getUserId() {
+        return this.userId;
     }
 
     public int getActive() {

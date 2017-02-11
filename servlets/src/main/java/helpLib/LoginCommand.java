@@ -28,7 +28,7 @@ public class LoginCommand implements Command {
             UserDao userDao = (UserDao) request.getServletContext().getAttribute("userDao");
             model.User user = userDao.getUserIdByEmail(login);
             request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute("userId", user.getUser_id());
+            request.getSession().setAttribute("userId", user.getUserId());
             if (request.getSession().getAttribute("locale") == null) {
                 request.getSession().setAttribute("locale", "rus");
             }

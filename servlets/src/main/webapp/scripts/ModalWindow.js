@@ -14,10 +14,10 @@ class ModalWindow {
         this.textarea = document.getElementById('modal_textarea');
         this.snd_btn = this.getId('snd_btn');
         this.snd_btn.addEventListener('click', evt=> {
-            var mess = new TechnicalMessage();//0, this.owner_id, this.friend.user_id, this.textarea.value, new Date());
+            var mess = new TechnicalMessage();//0, this.ownerId, this.friend.userId, this.textarea.value, new Date());
             mess.setTypeMessage(0)
-                .setUserFrom(this.owner_id)
-                .setUserTo(this.friend.user_id)
+                .setUserFrom(this.ownerId)
+                .setUserTo(this.friend.userId)
                 .setTextContent(this.textarea.value)
                 .setDate(new Date());
             socket.doSend(JSON.stringify(mess));
@@ -75,14 +75,14 @@ class ModalWindow {
 
 
     // Let's open the modal
-    modalShow(friend, user_id) {
+    modalShow(friend, userId) {
         this.friend = friend;
-        this.owner_id = user_id;
+        this.ownerId = userId;
         var title = document.getElementById("modal_user");
         title.innerHTML = '';
-        title.appendChild(document.createTextNode(friend.f_name + " " + friend.i_name));
+        title.appendChild(document.createTextNode(friend.surname + " " + friend.name));
         var img = document.getElementById("modal_mainImage");
-        img.src = "/files/" + friend.photo_src;
+        img.src = "/files/" + friend.photoSrc;
         this.lastFocus = document.activeElement;
         this.mOverlay.setAttribute('aria-hidden', 'false');
         this.modalOpen = true;

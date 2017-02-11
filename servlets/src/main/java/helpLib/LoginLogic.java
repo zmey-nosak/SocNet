@@ -8,9 +8,7 @@ import dao.UserDao;
 public class LoginLogic {
     UserDao userDao;
 
-    public LoginLogic(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    public LoginLogic(UserDao userDao) {this.userDao = userDao;}
 
     public boolean checkLogin(String login, String password) {
         return userDao.checkLogin(login, password);

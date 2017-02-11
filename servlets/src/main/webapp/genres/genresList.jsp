@@ -19,7 +19,7 @@
 <jsp:directive.include file="/index.jsp"/>
 <% for (Genre genre : (ArrayList<Genre>) genres) {%>
 <ul>
-    <li><a href="/books?genre_id=<%=String.valueOf(genre.getGenre_id())%>"><%=genre.getGenre_name()%>
+    <li><a href="/books?genreId=<%=String.valueOf(genre.getGenreId())%>"><%=genre.getGenreName()%>
     </a></li>
 </ul>
 <%}%>

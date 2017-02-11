@@ -1,26 +1,15 @@
 package openapi;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import dao.UserDao;
-import jdk.nashorn.internal.parser.JSONParser;
 import listeners.Initializer;
 import lombok.SneakyThrows;
 import model.*;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-import org.glassfish.jersey.server.JSONP;
-import org.h2.store.fs.FileUtils;
-import org.joda.time.DateTime;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.*;
 import javax.ws.rs.*;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
@@ -73,7 +62,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                UserInfo userInfo = userDao.getUserInfo(user.getUser_id());
+                UserInfo userInfo = userDao.getUserInfo(user.getUserId());
                 if (userInfo != null) {
                     return this.ok(userInfo);
                 }
@@ -91,7 +80,7 @@ public class UserResource implements JsonRestfulWebResource {
             Collections.sort((ArrayList) users, ((o1, o2) -> {
                 User u1 = (User) o1;
                 User u2 = (User) o2;
-                return u1.getF_name().compareTo(u2.getF_name()) > 0 ? 1 : u1.getF_name().equals(u2.getF_name()) ? 0 : -1;
+                return u1.getSurname().compareTo(u2.getSurname()) > 0 ? 1 : u1.getSurname().equals(u2.getSurname()) ? 0 : -1;
             }));
             return this.ok(users);
         } else {
@@ -188,7 +177,7 @@ public class UserResource implements JsonRestfulWebResource {
                                @FormDataParam("file") FormDataContentDisposition fileDetail,
                                @PathParam("userId") int user_id) {
         String path = saveToDisk(uploadedInputStream, fileDetail, user_id);
-        userDao.updatePhoto(user_id + "\\" + fileDetail.getFileName(), user_id);
+        userDao.updateUserPhoto(user_id + "\\" + fileDetail.getFileName(), user_id);
         return noContent();
     }
 
@@ -225,7 +214,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                userDao.addBook(bookId, user.getUser_id());
+                userDao.addBook(bookId, user.getUserId());
                 return this.ok("Ok");
             }
         }
@@ -240,7 +229,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                userDao.deleteFriend(user.getUser_id(), friendId);
+                userDao.deleteFriend(user.getUserId(), friendId);
             }
         }
         return this.ok(null);
@@ -254,7 +243,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                userDao.addFriend(user.getUser_id(), friendId);
+                userDao.addFriend(user.getUserId(), friendId);
             }
         }
         return this.ok(null);
@@ -268,7 +257,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                final Collection<FriendRequest> friendRequests = userDao.getFriendRequests(user.getUser_id());
+                final Collection<FriendRequest> friendRequests = userDao.getFriendRequests(user.getUserId());
                 if (friendRequests.size() > 0) {
                     return this.ok(friendRequests);
                 } else {
@@ -287,7 +276,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                final Collection<Integer> ownerRequests = userDao.getOwnerRequests(user.getUser_id());
+                final Collection<Integer> ownerRequests = userDao.getOwnerRequests(user.getUserId());
                 if (ownerRequests.size() > 0) {
                     return this.ok(ownerRequests);
                 } else {
@@ -306,7 +295,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                final int messCnt = userDao.getUnreadMessCount(user.getUser_id());
+                final int messCnt = userDao.getUnreadMessCount(user.getUserId());
                 if (messCnt > 0) {
                     return this.ok(messCnt);
                 } else {
@@ -325,7 +314,7 @@ public class UserResource implements JsonRestfulWebResource {
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {
-                final Collection<User> users = userDao.getFriendReqDetail(user.getUser_id());
+                final Collection<User> users = userDao.getFriendReqDetail(user.getUserId());
                 if (users.size() > 0) {
                     return this.ok(users);
                 } else {
@@ -343,7 +332,7 @@ public class UserResource implements JsonRestfulWebResource {
         HttpSession session = request.getSession();
         if (session != null) {
             User user = (User) session.getAttribute("user");
-            if (user != null && user.getUser_id() == userId) {
+            if (user != null && user.getUserId() == userId) {
                 userDao.activateFriendship(friendId, userId);
                 return this.ok(null);
             }

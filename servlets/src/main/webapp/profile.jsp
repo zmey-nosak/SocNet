@@ -141,7 +141,7 @@
             <button type="submit">Сохранить</button>
         </p>
     </form>
-        <button onclick="location.href='/userpage?userId=<%=((User)session.getAttribute("user")).getUser_id()%>'">
+        <button onclick="location.href='/userpage?userId=<%=((User)session.getAttribute("user")).getUserId()%>'">
             Отмена
         </button>
 

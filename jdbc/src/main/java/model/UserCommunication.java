@@ -9,43 +9,43 @@ import org.joda.time.DateTime;
  */
 @Setter
 public class UserCommunication {
-    private int communication_id;
+    private int communicationId;
     private String message;
-    private int user_from;
-    private String f_name;
-    private String i_name;
-    private String photo_src;
-    private String ownerPhoto_src;
+    private int userIdFrom;
+    private String surname;
+    private String name;
+    private String photoSrc;
+    private String ownerPhotoSrc;
     private int active;
     private DateTime date;
     private int partner;
 
-    public String getPhoto_src() {
-        return photo_src;
+    public String getPhotoSrc() {
+        return photoSrc;
     }
 
-    public String getOwnerPhoto_src() {
-        return ownerPhoto_src;
+    public String getOwnerPhotoSrc() {
+        return ownerPhotoSrc;
     }
 
-    public int getCommunication_id() {
-        return this.communication_id;
+    public int getCommunicationId() {
+        return this.communicationId;
     }
 
     public String getMessage() {
         return this.message;
     }
 
-    public int getUser_from() {
-        return this.user_from;
+    public int getUserIdFrom() {
+        return this.userIdFrom;
     }
 
-    public String getF_name() {
-        return this.f_name;
+    public String getSurname() {
+        return this.surname;
     }
 
-    public String getI_name() {
-        return this.i_name;
+    public String getName() {
+        return this.name;
     }
 
     public int getActive() {

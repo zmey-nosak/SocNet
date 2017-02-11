@@ -21,10 +21,10 @@ public class BooksListMini implements Printable {
     public String getString() {
         StringBuffer out = new StringBuffer();
         for (Book book : books) {
-            out.append("<tr><td><a href=\"/books?book_id=").append(book.getBook_id()).append("\">")
-                    .append(book.getBook_name()).append("</a></td>");
-            out.append("<td><img src=\"").append(book.getImage_src()).append("\" width=\"60\" height=\"100\"></td>");
-            out.append("<td><button onclick=\"addBook(").append(book.getBook_id()).append(")\"");
+            out.append("<tr><td><a href=\"/books?bookId=").append(book.getBookId()).append("\">")
+                    .append(book.getBookName()).append("</a></td>");
+            out.append("<td><img src=\"").append(book.getImageSrc()).append("\" width=\"60\" height=\"100\"></td>");
+            out.append("<td><button onclick=\"addBook(").append(book.getBookId()).append(")\"");
             out.append("<td>").append(new String("Добавить к себе".getBytes(), Charset.forName("utf-8"))).append("</button>");
             out.append("</td></tr>");
         }

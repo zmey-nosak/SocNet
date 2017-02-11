@@ -31,13 +31,16 @@ public class Authors extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Collection<Author> authors = authorDao.getAll();
-        Collections.sort((ArrayList)authors, ((o1, o2) -> {
-            Author a1=(Author)o1;
-            Author a2=(Author)o2;
-            return a1.getF_name().compareTo(a2.getF_name())>0?1:a1.getF_name().equals(a2.getF_name())?0:-1;
-        }));
-        req.setAttribute("authors", authors);
+      /*  ArrayList<Author> authors = authorDao.getAll();
+        Collections.sort(authors, (o1, o2) -> {
+            return o1.getSurname().compareTo(o2.getSurname());
+        });
+        req.setAttribute("authors", authors);*/
+        int offset = 0;
+        if (req.getParameterMap().containsKey("offset")) {
+            offset = Integer.parseInt(req.getParameter("offset"));
+        }
+        req.setAttribute("offset", offset);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/authors/authorsList.jsp");
         requestDispatcher.forward(req, resp);
     }

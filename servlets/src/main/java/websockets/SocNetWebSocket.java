@@ -27,7 +27,7 @@ public class SocNetWebSocket {
 
     @OnOpen
     public void handleOpen(EndpointConfig endpointConfig, Session userSession) {
-        userSession.getUserProperties().put("user_id", endpointConfig.getUserProperties().get("user_id"));
+        userSession.getUserProperties().put("userId", endpointConfig.getUserProperties().get("userId"));
         users.add(userSession);
     }
 
@@ -39,9 +39,9 @@ public class SocNetWebSocket {
     @OnMessage
     public void handleMessage(String message, Session userSession) {
 
-        String user_id_from = (String) userSession.getUserProperties().get("user_id");
+        String userIdFrom = (String) userSession.getUserProperties().get("userId");
         UserDao userDao = (UserDao) userSession.getUserProperties().get("userDao");
-        if (user_id_from != null) {
+        if (userIdFrom != null) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 TechnicalMessage mess = mapper.readValue(message, TechnicalMessage.class);
@@ -49,22 +49,22 @@ public class SocNetWebSocket {
                 int type = Integer.parseInt(mess.getType());
                 switch (type) {
                     case 0:
-                        int messId = userDao.sendMessage(Integer.parseInt(user_id_from), Integer.parseInt(mess.user_id_to), mess.message, DateTime.parse(mess.date));
+                        int messId = userDao.sendMessage(Integer.parseInt(userIdFrom), Integer.parseInt(mess.userIdTo), mess.message, DateTime.parse(mess.date));
 
                         mess.setId(String.valueOf(messId));
-                        sendMessOnlineUser(mess.getUser_id_to(), toJson(mess));//send message to partner
+                        sendMessOnlineUser(mess.getUserIdTo(), toJson(mess));//send message to partner
 
-                        mess.setUser_id_to(mess.getUser_id());//messageForMyself
+                        mess.setUserIdTo(mess.getUserId());//messageForMyself
                         userSession.getBasicRemote().sendText(toJson(mess));
 
                         break;
                     case 1:
-                        userDao.updateMessages(mess.getMessages_for_update());
+                        userDao.updateMessages(mess.getMessagesForUpdate());
                         userSession.getBasicRemote().sendText(message);
-                        sendMessOnlineUser(mess.getUser_id_to(), message);
+                        sendMessOnlineUser(mess.getUserIdTo(), message);
                         break;
                     case 2:
-                        sendMessOnlineUser(mess.getUser_id_to(), message);
+                        sendMessOnlineUser(mess.getUserIdTo(), message);
                         break;
                 }
             } catch (Exception e) {
@@ -80,7 +80,7 @@ public class SocNetWebSocket {
 
     @SneakyThrows
     private void sendMessOnlineUser(String whom, String mess) {
-        Optional<Session> session = users.stream().filter(x -> x.getUserProperties().get("user_id").equals(whom)).findAny();
+        Optional<Session> session = users.stream().filter(x -> x.getUserProperties().get("userId").equals(whom)).findAny();
         if (session.isPresent()) {
             session.get().getBasicRemote().sendText(mess);
         }
@@ -98,12 +98,12 @@ public class SocNetWebSocket {
     @Getter
     private static class TechnicalMessage {
         private String message;
-        private String user_id_to;
-        private String user_id;
+        private String userIdTo;
+        private String userId;
         private String date;
         private String type;
-        private String new_friend_id;
-        private String messages_for_update;
+        private String newFriendId;
+        private String messagesForUpdate;
         private String id;
         private String active;
     }

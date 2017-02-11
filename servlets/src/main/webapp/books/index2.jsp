@@ -31,12 +31,12 @@
     <% for (Book book : (ArrayList<Book>) books) {%>
     <tr>
         <td>
-            <%=book.getBook_name() + "."%>
+            <%=book.getBookName() + "."%>
         </td>
-        <td><img src=<%=book.getImage_src()%> width="60" height="100">
+        <td><img src=<%=book.getImageSrc()%> width="60" height="100">
         </td>
         <td>
-            <button onclick="addBook(<%=book.getBook_id()%>)">Добавить к себе</button>
+            <button onclick="addBook(<%=book.getBookId()%>)">Добавить к себе</button>
         </td>
     </tr>
     <%}%>

@@ -36,7 +36,7 @@ class Server {
     static getObjectAsync(path, resolve, reject, data) {
         this.getTextAsync(path,
             text=>resolve(JSON.parse(text, function (key, value) {
-                if (key == 'date' || key == 'dob') {
+                if (key == 'date' || key == 'dateOfBirth') {
                     return new Date(value);
                 }
                 return value;
@@ -55,7 +55,7 @@ class Server {
             text=> {
                 if (text != "")
                     resolve(JSON.parse(text, function (key, value) {
-                        if (key == 'date' || key == 'dob') {
+                        if (key == 'date' || key == 'dateOfBirth') {
                             return new Date(value);
                         }
                         return value;
@@ -101,7 +101,7 @@ class Server {
             text=> {
                 if (text != "")
                     resolve(JSON.parse(text, function (key, value) {
-                        if (key == 'date' || key == 'dob') {
+                        if (key == 'date' || key == 'dateOfBirth') {
                             return new Date(value);
                         }
                         return value;
@@ -163,27 +163,27 @@ class Server {
 
     /**
      * @param {string} id
-     * @param {string} communication_id
+     * @param {string} communicationId
      * @returns Promise<UserCommunications[]>
      */
-    static getUserCommunicationInfo(id, communication_id) {
-        return new Promise((resolve, reject) => this.getObjectAsync('users/' + id + '/communications/' + communication_id, resolve, reject));
+    static getUserCommunicationInfo(id, communicationId) {
+        return new Promise((resolve, reject) => this.getObjectAsync('users/' + id + '/communications/' + communicationId, resolve, reject));
     }
 
     /**
      * @returns Promise<Message[]>
      */
-    static getUserMessages(user_id, communication_id) {
-        return new Promise((resolve, reject) => this.getObjectAsync('users/' + user_id + '/communications/' + communication_id + '/messages', resolve, reject));
+    static getUserMessages(userId, communicationId) {
+        return new Promise((resolve, reject) => this.getObjectAsync('users/' + userId + '/communications/' + communicationId + '/messages', resolve, reject));
     }
 
 
-    static getUserInfo(user_id) {
-        return new Promise((resolve, reject) => this.getObjectAsync('users/' + user_id + "/userInfo", resolve, reject));
+    static getUserInfo(userId) {
+        return new Promise((resolve, reject) => this.getObjectAsync('users/' + userId + "/userInfo", resolve, reject));
     }
 
-    static putUserPhoto(user_id, object) {
-        return new Promise((resolve, reject) => this.getObjectAsyncPost('users/' + user_id + "/upload", resolve, reject, object));
+    static putUserPhoto(userId, object) {
+        return new Promise((resolve, reject) => this.getObjectAsyncPost('users/' + userId + "/upload", resolve, reject, object));
     }
 
     /**
@@ -198,20 +198,20 @@ class Server {
         return new Promise((resolve, reject) =>this.getObjectAsyncPost('users/books/' + bookId, resolve, reject));
     }
 
-    static getUserBooks(user_id) {
-        return new Promise((resolve, reject) =>this.getObjectAsync('users/' + user_id + '/books', resolve, reject));
+    static getUserBooks(userId) {
+        return new Promise((resolve, reject) =>this.getObjectAsync('users/' + userId + '/books', resolve, reject));
     }
 
     static getOwner() {
         return new Promise((resolve, reject) =>this.getObjectAsync('users/owner', resolve, reject));
     }
 
-    static deleteFriend(friend_id) {
-        return new Promise((resolve, reject) =>this.getObjectAsyncDelete('users/deleteFriend/' + friend_id, resolve, reject));
+    static deleteFriend(friendId) {
+        return new Promise((resolve, reject) =>this.getObjectAsyncDelete('users/deleteFriend/' + friendId, resolve, reject));
     }
 
-    static addFriend(friend_id) {
-        return new Promise((resolve, reject) =>this.getObjectAsyncPost('users/friends/add/' + friend_id, resolve, reject));
+    static addFriend(friendId) {
+        return new Promise((resolve, reject) =>this.getObjectAsyncPost('users/friends/add/' + friendId, resolve, reject));
     }
 
     static getFriendRequests() {
@@ -230,7 +230,11 @@ class Server {
         return new Promise((resolve, reject) =>this.getObjectAsync('users/friendReqDetail', resolve, reject));
     }
 
-    static activateFriendShip(owner_id, friend_id) {
-        return new Promise((resolve, reject) =>this.getObjectAsyncPost('users/' + owner_id + '/friendship/' + friend_id + '/activate', resolve, reject));
+    static activateFriendShip(ownerId, friendId) {
+        return new Promise((resolve, reject) =>this.getObjectAsyncPost('users/' + ownerId + '/friendship/' + friendId + '/activate', resolve, reject));
+    }
+
+    static getAllAuthors(limit, offset) {
+        return new Promise((resolve, reject) =>this.getObjectAsync('authors?limit=' + limit + '&offset=' + offset, resolve, reject));
     }
 }

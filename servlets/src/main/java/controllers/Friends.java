@@ -1,7 +1,6 @@
 package controllers;
 
 import dao.UserDao;
-import model.*;
 import tags.*;
 import tags.FriendRequest;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created by Echetik on 02.11.2016.
@@ -27,7 +25,7 @@ public class Friends extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int user_id = Integer.parseInt(req.getParameter("userId"));
         model.User user = (model.User) req.getSession().getAttribute("user");
-        if (user.getUser_id() == user_id) {
+        if (user.getUserId() == user_id) {
             Printable printable = null;
             if (req.getRequestURI().contains("/friends/requests")) {
                 printable = new FriendRequest(user_id);

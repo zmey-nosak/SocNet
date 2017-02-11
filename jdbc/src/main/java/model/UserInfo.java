@@ -14,12 +14,13 @@ import java.util.Collection;
 @Getter
 @EqualsAndHashCode
 public class UserInfo {
-    Collection<User> user_friends;
-    Collection<Book> user_books;
-    private String f_name;
-    private String i_name;
-    private LocalDate dob;
-    private String photo_src;
-    private int user_id;
+    Collection<User> userFriends;
+    Collection<Book> userBooks;
+    User user;
+    private String surname;
+    private String name;
+    private LocalDate dateOfBirth;
+    private String photoSrc;
+    private int userId;
 
 }

@@ -5,8 +5,8 @@
 
 class CommunicationList {
 
-    constructor(user_id = 0) {
-        this.owner_id = user_id;
+    constructor(userId = 0) {
+        this.ownerId = userId;
         this.identification = "communication";
         this.print('response_element');
         socket.webSocket.addEventListener("message", evt=> {
@@ -36,7 +36,7 @@ class CommunicationList {
         var div_main_img = document.createElement("div");
         div_main_img.className = "comm_mainImage";
         var img = document.createElement("img");
-        img.src = "/files/" + communication.photo_src;
+        img.src = "/files/" + communication.photoSrc;
         img.width = 40;
         img.height = 50;
         div_main_img.appendChild(img);
@@ -44,8 +44,8 @@ class CommunicationList {
 
         var div_head = document.createElement("div");
         div_head.className = "comm_head";
-        var txt_node = document.createTextNode(communication.f_name + " "
-            + communication.i_name
+        var txt_node = document.createTextNode(communication.surname + " "
+            + communication.name
             + " "
             + communication.date.toLocaleDateString());
 
@@ -55,7 +55,7 @@ class CommunicationList {
         var div_child_img = document.createElement("div");
         div_child_img.className = "comm_childImage";
         var ch_img = document.createElement("img");
-        ch_img.src = "/files/" + communication.ownerPhoto_src;
+        ch_img.src = "/files/" + communication.ownerPhotoSrc;
         ch_img.width = 20;
         ch_img.height = 25;
         div_child_img.appendChild(ch_img);
@@ -66,7 +66,7 @@ class CommunicationList {
 
         /** @type HTMLLinkElement */var a = document.createElement("a");
         var txt_node2 = document.createTextNode(communication.message);
-        a.setAttribute("href", "/messages?userId=" + this.owner_id + "&communicationId=" + communication.communication_id + "&partnerId=" + communication.partner);
+        a.setAttribute("href", "/messages?userId=" + this.ownerId + "&communicationId=" + communication.communicationId + "&partnerId=" + communication.partner);
         a.appendChild(txt_node2);
         div_mess.appendChild(a);
         div_container.appendChild(div_mess);
@@ -88,7 +88,7 @@ class CommunicationList {
         this.div_content.className = "comm_prokrutka";
         this.div_content.id = "response_element_" + this.identification;
         this.targetElement.appendChild(this.div_content);
-        Server.getUserCommunications(this.owner_id).then(communications=>this.addAll(communications));
+        Server.getUserCommunications(this.ownerId).then(communications=>this.addAll(communications));
         this.targetElement.scrollTop = this.targetElement.scrollHeight;
     }
 

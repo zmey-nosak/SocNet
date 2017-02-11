@@ -29,7 +29,7 @@ public class UserFilter implements HttpFilter {
             String email = request.getRemoteUser();
             user = userDao.getUserIdByEmail(email);
             request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute("userId", user.getUser_id());
+            request.getSession().setAttribute("userId", user.getUserId());
             if (request.getSession().getAttribute("locale") == null) {
                 request.getSession().setAttribute("locale", "rus");
             }

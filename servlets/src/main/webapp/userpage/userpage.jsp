@@ -52,20 +52,20 @@
                             <ul>
                                 <li><a href="/index.jsp">На главную</a></li>
                                 <li>
-                                    <a href="/userpage?userId=<%=((User)request.getSession().getAttribute("user")).getUser_id()%>">Моя
+                                    <a href="/userpage?userId=<%=((User)request.getSession().getAttribute("user")).getUserId()%>">Моя
                                         страница</a><a class="notification" href="/profile"> ред.</a></li>
                                 </li>
                                 <li>
-                                    <a href="/friends?userId=<%=((User)request.getSession().getAttribute("user")).getUser_id()%>">Друзья</a>
+                                    <a href="/friends?userId=<%=((User)request.getSession().getAttribute("user")).getUserId()%>">Друзья</a>
                                     <a class="notification"
-                                       href=/friends/requests?userId=<%=((User) request.getSession().getAttribute("user")).getUser_id()%>
+                                       href=/friends/requests?userId=<%=((User) request.getSession().getAttribute("user")).getUserId()%>
                                        id="newFriends"></a></li>
                                 </li>
                                 <li>
-                                    <a href="/messages?userId=<%=((User)request.getSession().getAttribute("user")).getUser_id()%>">Сообщения</a>
+                                    <a href="/messages?userId=<%=((User)request.getSession().getAttribute("user")).getUserId()%>">Сообщения</a>
                                     <a class="notification" href=# id="newMess"></a></li>
                                 <li>
-                                    <a href="/users?userId=<%=((User)request.getSession().getAttribute("user")).getUser_id()%>">Сообщество</a>
+                                    <a href="/users?userId=<%=((User)request.getSession().getAttribute("user")).getUserId()%>">Сообщество</a>
                                 </li>
 
                             </ul>
@@ -81,7 +81,6 @@
                             </tr>
                         </table>
                     </td>
-
                 </tr>
             </table>
         </td>

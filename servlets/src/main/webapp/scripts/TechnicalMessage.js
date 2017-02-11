@@ -8,12 +8,12 @@
 class TechnicalMessage {
     constructor(/*type = 0, user_id_from, user_id_to = 0, message = "", date = new Date(), new_friend_id = 0, messages_for_update = '', active = 0*/) {
         this.type =0;//0-newMess //1-updateMess //2-newFriend
-        this.user_id = 0;
-        this.user_id_to = 0;
+        this.userId = 0;
+        this.userIdTo = 0;
         this.message = "";
         this.date = new Date();
-        this.new_friend_id = 0;
-        this.messages_for_update = "";
+        this.newFriendId = 0;
+        this.messagesForUpdate = "";
         this.id = 0;
         this.active = 0;
     }
@@ -28,15 +28,15 @@ class TechnicalMessage {
     /**
      * @returns {TechnicalMessage}
      */
-    setUserFrom(user_id_from) {
-        this.user_id = user_id_from;
+    setUserFrom(userIdFrom) {
+        this.userId = userIdFrom;
         return this;
     }
     /**
      * @returns {TechnicalMessage}
      */
-    setUserTo(user_id_to) {
-        this.user_id_to = user_id_to;
+    setUserTo(userIdTo) {
+        this.userIdTo = userIdTo;
         return this;
     }
     /**
@@ -56,15 +56,15 @@ class TechnicalMessage {
     /**
      * @returns {TechnicalMessage}
      */
-    setNewFriendId(new_friend_id) {
-        this.new_friend_id = new_friend_id;
+    setNewFriendId(newFriendId) {
+        this.newFriendId = newFriendId;
         return this;
     }
     /**
      * @returns {TechnicalMessage}
      */
-    setMessagesForUpdate(messages_for_update) {
-        this.messages_for_update = messages_for_update;
+    setMessagesForUpdate(messagesForUpdate) {
+        this.messagesForUpdate = messagesForUpdate;
         return this;
     }
     /**

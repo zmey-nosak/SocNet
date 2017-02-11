@@ -12,13 +12,13 @@ import lombok.Value;
 @AllArgsConstructor
 @Setter
 public class Book {
-    private int book_id;
-    private String book_name;
-    private int pages_count;
-    private int author_id;
-    private String year_name;
-    private String image_src;
-    private int genre_id;
+    private int bookId;
+    private String bookName;
+    private int pagesCount;
+    private int authorId;
+    private String yearName;
+    private String imageSrc;
+    private int genreId;
     public Book() {
     }
 

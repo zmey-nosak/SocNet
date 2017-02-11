@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/Menu.css">
     <script>
         function addBook(bookId) {
-            Server.getUserBooks(<%=((User)request.getSession().getAttribute("user")).getUser_id()%>).then(books=> {
+            Server.getUserBooks(<%=((User)request.getSession().getAttribute("user")).getUserId()%>).then(books=> {
                 if (bookId==books.find(p=>p==bookId)) {
                     sendNotification("Книга уже у Вас в списке!");
                 } else {

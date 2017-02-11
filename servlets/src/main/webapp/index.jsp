@@ -187,7 +187,7 @@
     <tr>
         <td height="80" align="left" valign="top" padding="0">
             <ul class="mmenuu">
-                <li><a href="/userpage?userId=<%=((User)request.getSession().getAttribute("user")).getUser_id()%>">Моя страница</a></li>
+                <li><a href="/userpage?userId=<%=((User)request.getSession().getAttribute("user")).getUserId()%>">Моя страница</a></li>
                 <li><a href=#>Книги</a>
                     <ul class="ssubmenuu">
                         <li><a href="/authors/">По авторам</a></li>

@@ -1,9 +1,6 @@
 package controllers;
 
-import dao.GenreDao;
 import dao.UserDao;
-import lombok.SneakyThrows;
-import model.*;
 import model.User;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -16,11 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.DateFormatter;
 import java.io.IOException;
-import java.net.URLDecoder;
-
-import java.util.Locale;
 
 /**
  * Created by Echetik on 11.01.2017.
@@ -52,24 +45,24 @@ public class Profile extends HttpServlet {
         User owner = (User) req.getSession().getAttribute("user");
         model.User user = new model.User();
         req.setCharacterEncoding("UTF-8");
-        String f_name = req.getParameter("f_name");
-        String i_name = req.getParameter("i_name");
+        String surname = req.getParameter("surname");
+        String name = req.getParameter("name");
         String email = req.getParameter("email");
-        if (f_name.isEmpty()) {
+        if (surname.isEmpty()) {
             message += "First Name cant be empty.<br>" ;
         } else {
-            user.setF_name(f_name);
+            user.setSurname(surname);
         }
-        if (i_name.isEmpty()) {
+        if (name.isEmpty()) {
             message += "Last Name cant be empty.<br>" ;
         } else {
-            user.setI_name(i_name);
+            user.setName(name);
         }
         if (email.isEmpty()) {
             message += "Email cant be empty.<br>" ;
         } else {
             if (!email.equals(owner.getEmail())) {
-                if (userDao.emailExists(user.getEmail())) {
+                if (userDao.doesEmailExist(user.getEmail())) {
                     message += "This email address already exists.<br>" +
                             "Please enter another email address." ;
                 }
@@ -80,8 +73,8 @@ public class Profile extends HttpServlet {
         try {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("d.MM.yyyy");
             formatter = formatter.withLocale(req.getLocale());
-            LocalDate date = formatter.parseLocalDate(req.getParameter("dob"));
-            user.setDob(date);
+            LocalDate date = formatter.parseLocalDate(req.getParameter("dateOfBirth"));
+            user.setDateOfBirth(date);
         } catch (Exception ex) {
             message += "Date is not valid.<br>" ;
         }
@@ -91,7 +84,7 @@ public class Profile extends HttpServlet {
         String confP = req.getParameter("conf_password");
         String oldP = req.getParameter("old_password");
         if (!newP.isEmpty() || !confP.isEmpty() || !oldP.isEmpty()) {
-            if (userDao.getPsw(owner.getUser_id()).equals(oldP)) {
+            if (userDao.getPsw(owner.getUserId()).equals(oldP)) {
                 if (newP.isEmpty() && confP.isEmpty()) {
                     message += "Password cant be empty.<br>" ;
                 } else if (!newP.equals(confP.isEmpty())) {
@@ -103,14 +96,14 @@ public class Profile extends HttpServlet {
                 message += "current password is not correct!<br>" ;
             }
         } else {
-            user.setPassword(userDao.getPsw(owner.getUser_id()));
+            user.setPassword(userDao.getPsw(owner.getUserId()));
         }
 
 
         if (message.isEmpty()) {
-            user.setUser_id(((User) req.getSession().getAttribute("user")).getUser_id());
+            user.setUserId(((User) req.getSession().getAttribute("user")).getUserId());
             userDao.updateProfile(user);
-            url = "/userpage?userId=" + user.getUser_id();
+            url = "/userpage?userId=" + user.getUserId();
             req.getSession().setAttribute("user", user);
         } else {
             url = "/profile.jsp" ;

@@ -15,11 +15,11 @@
 <table border="1">
     <tr>
         <td valign="top">
-            <img src="<%=book.getImage_src()%>" width="80" height="100"><br>
-            <%=book.getBook_name()%>
+            <img src="<%=book.getImageSrc()%>" width="80" height="100"><br>
+            <%=book.getBookName()%>
         </td>
         <td>
-            <form action="/books?book_id=<%=book.getBook_id()%>" method="post" name="confirmationForm"
+            <form action="/books?bookId=<%=book.getBookId()%>" method="post" name="confirmationForm"
                   id="confirmationForm" accept-charset="utf-8">
                 <textarea rows="10" cols="30" id="confirmationText" name="confirmationText"></textarea>
                 <br>

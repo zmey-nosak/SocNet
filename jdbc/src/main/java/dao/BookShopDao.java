@@ -11,8 +11,4 @@ import java.util.Optional;
 @FunctionalInterface
 public interface BookShopDao {
     Collection<BookShop> getAll();
-
-    default Optional<BookShop> getById(long shop_id) {
-        return getAll().stream().filter(bookShop -> bookShop.getShop_id() == shop_id).findAny();
-    }
 }

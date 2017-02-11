@@ -11,41 +11,41 @@ import java.util.Collection;
  * Created by Echetik on 04.11.2016.
  */
 public interface UserDao {
-    UserInfo getUserInfo(int user_id);
+    UserInfo getUserInfo(int userId);
 
     User getUserIdByEmail(String email);
 
     int registerUser(User user);
 
-    boolean emailExists(String email);
+    boolean doesEmailExist(String email);
 
     Collection<User> getAllUsers();
 
-    Collection<User> getFriends(int user_id);
+    Collection<User> getFriends(int userId);
 
-    Collection<Integer> getUserBooks(int user_id);
+    Collection<Integer> getUserBooks(int userId);
 
     User getUser(int user_id);
 
-    int sendMessage(int user_id_from, int user_id_to, String message, DateTime dateTime);
+    int sendMessage(int userIdFrom, int userIdTo, String message, DateTime dateTime);
 
-    Collection<UserCommunication> getUserCommunications(int user_id);
+    Collection<UserCommunication> getUserCommunications(int userId);
 
-    Collection<UserMessage> getUserMessages(int user_id, int communication_id);
+    Collection<UserMessage> getUserMessages(int userId, int communicationId);
 
-    User getPartnerByCommunication(int user_id, int communication_id);
+    User getPartnerByCommunication(int userId, int communicationId);
 
-    void updatePhoto(String patch, int user_id);
+    void updateUserPhoto(String patch, int userId);
 
     void updateMessages(String messageList);
 
-    boolean addBook(int book_id, int user_id);
+    boolean addBook(int book_id, int userId);
 
     void addFriend(int whoId, int whomId);
 
     void activateFriendship(int friendId, int userId);
 
-    void deleteFriend(int owner_id, int friend_id);
+    void deleteFriend(int ownerId, int friendId);
 
     Collection<FriendRequest> getFriendRequests(int userId);
 
@@ -53,9 +53,9 @@ public interface UserDao {
 
     int getUnreadMessCount(int userId);
 
-    Collection<User> getFriendReqDetail(int user_id);
+    Collection<User> getFriendReqDetail(int userId);
 
-    String getPsw(int user_id);
+    String getPsw(int userId);
 
     void updateProfile(User user);
 

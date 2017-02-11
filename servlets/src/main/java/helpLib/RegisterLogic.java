@@ -11,7 +11,7 @@ public class RegisterLogic {
         this.userDao = userDao;
     }
     public boolean checkLogin(String login) {
-        return userDao.emailExists(login);
+        return userDao.doesEmailExist(login);
     }
     public int registerUser(model.User user) {
         return userDao.registerUser(user);

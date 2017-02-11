@@ -20,7 +20,6 @@ public class FileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String str = request.getPathInfo();
-        // String filename = URLDecoder.decode(request.getPathInfo().substring(1), "UTF-8");
         File file = new File("D:\\user_images\\" + str);
         String filename = fooBar2(str);
         response.setHeader("Content-Type", getServletContext().getMimeType(filename));

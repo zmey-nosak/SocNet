@@ -4,11 +4,10 @@ import dao.AuthorDao;
 import dao.BookDao;
 import dao.GenreDao;
 import dao.UserDao;
-import dao.h2.H2AuthorDao;
-import dao.h2.H2BookDao;
-import dao.h2.H2GenreDao;
-import dao.h2.H2UserDao;
-import lombok.SneakyThrows;
+import dao.postgres.PostgresAuthorDao;
+import dao.postgres.PostgresBookDao;
+import dao.postgres.PostgresGenreDao;
+import dao.postgres.PostgresUserDao;
 
 
 import javax.naming.Context;
@@ -21,8 +20,6 @@ import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.function.Supplier;
 
 /**
@@ -45,10 +42,10 @@ public class Initializer implements ServletContextListener {
             //инициализация пула соединений с БД
             connectionPool = getConnectionSupplier();
 
-            AuthorDao authorDao = new H2AuthorDao(connectionPool);
-            BookDao bookDao = new H2BookDao(connectionPool);
-            GenreDao genreDao = new H2GenreDao(connectionPool);
-            UserDao userDao = new H2UserDao(connectionPool);
+            AuthorDao authorDao = new PostgresAuthorDao(connectionPool);
+            BookDao bookDao = new PostgresBookDao(connectionPool);
+            GenreDao genreDao = new PostgresGenreDao(connectionPool);
+            UserDao userDao = new PostgresUserDao(connectionPool);
             servletContext.setAttribute("authorDao", authorDao);
             servletContext.setAttribute("bookDao", bookDao);
             servletContext.setAttribute("genreDao", genreDao);

@@ -7,6 +7,7 @@ package dao;
 import model.Book;
 import model.Review;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
@@ -15,20 +16,14 @@ import java.util.stream.Collectors;
 public interface BookDao {
     Collection<Book> getAll();
 
-    /*default Optional<Book> getById(long book_id) {
-        return getAll().stream().filter(book -> book.getBook_id() == book_id).findAny();
-    }*/
-    Book getById(int book_id);
 
-    void setReview(int user_id, int book_id, String review);
+    Book getBookById(int bookId);
 
-    Collection<Review> getReviewById(int book_id);
+    void setBookReview(int userId, int bookId, String review);
 
-    default Collection<Book> getByAuthorId(long author_id) {
-        return getAll().stream().filter(book -> book.getAuthor_id() == author_id).collect(Collectors.toList());
-    }
+    ArrayList<Review> getReviewById(int bookId);
 
-    default Collection<Book> getByGenreId(long genre_id) {
-        return getAll().stream().filter(book -> book.getGenre_id() == genre_id).collect(Collectors.toList());
-    }
+    ArrayList<Book> getByAuthorId(int authorId);
+
+    ArrayList<Book> getByGenreId(int genreId);
 }

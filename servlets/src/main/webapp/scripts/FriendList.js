@@ -4,8 +4,8 @@
 'use strict';
 
 class FriendList {
-    constructor(user_id) {
-        this.owner_id = user_id;
+    constructor(userId) {
+        this.ownerId = userId;
         this.identification = "friends";
         socket.webSocket.addEventListener("message", evt=> {
             var obj = JSON.parse(evt.data, function (key, value) {
@@ -30,7 +30,7 @@ class FriendList {
 
     printFriends(id) {
         this.init(id);
-        Server.getFriends(this.owner_id).then(friends=>this.addAll(friends));
+        Server.getFriends(this.ownerId).then(friends=>this.addAll(friends));
     }
 
     printAllUsers(id) {
@@ -45,7 +45,7 @@ class FriendList {
     }
 
     activateFriendship(friendId) {
-        Server.activateFriendShip(this.owner_id, friendId);
+        Server.activateFriendShip(this.ownerId, friendId);
     }
 
     add(friend) {
@@ -56,20 +56,20 @@ class FriendList {
         var div_main_img = document.createElement("div");
         div_main_img.className = "comm_mainImage";
         var img = document.createElement("img");
-        img.src = "/files/" + friend.photo_src;
+        img.src = "/files/" + friend.photoSrc;
         img.width = 40;
         img.height = 50;
-        img.id = "image_" + friend.user_id;
+        img.id = "image_" + friend.userId;
         div_main_img.appendChild(img);
         div_container.appendChild(div_main_img);
 
         var div_head = document.createElement("div");
         div_head.className = "comm_head";
         var a = document.createElement("a");
-        a.setAttribute("href", "/userpage?userId=" + friend.user_id);
+        a.setAttribute("href", "/userpage?userId=" + friend.userId);
 
-        var txt_node = document.createTextNode(friend.f_name + " "
-            + friend.i_name);
+        var txt_node = document.createTextNode(friend.surname + " "
+            + friend.name);
         a.appendChild(txt_node);
         div_head.appendChild(a);
         div_container.appendChild(div_head);
@@ -83,7 +83,7 @@ class FriendList {
             txt_node2 = document.createTextNode("Утвердить заявку");
             a.setAttribute("href", "#");
             a.addEventListener("click", evt=> {
-                Server.activateFriendShip(this.owner_id, friend.user_id).then(evt=> {
+                Server.activateFriendShip(this.ownerId, friend.userId).then(evt=> {
                     div_mess.innerHTML = '';
                     div_mess.appendChild(document.createTextNode("Заявка одобрена"));
                     var el = document.getElementById("newFriends");
@@ -103,7 +103,7 @@ class FriendList {
         } else {
             txt_node2 = document.createTextNode("Написать сообщение");
             a.setAttribute("href", "#");
-            a.addEventListener("click", evt=>modalWindow.modalShow(friend, this.owner_id), true);
+            a.addEventListener("click", evt=>modalWindow.modalShow(friend, this.ownerId), true);
         }
 
         a.appendChild(txt_node2);
