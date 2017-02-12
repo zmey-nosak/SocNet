@@ -1,5 +1,6 @@
 package listeners;
 
+import common.ConnectionPool;
 import dao.AuthorDao;
 import dao.BookDao;
 import dao.GenreDao;
@@ -8,6 +9,8 @@ import dao.postgres.PostgresAuthorDao;
 import dao.postgres.PostgresBookDao;
 import dao.postgres.PostgresGenreDao;
 import dao.postgres.PostgresUserDao;
+import lombok.SneakyThrows;
+import util.StringEncryptUtil;
 
 
 import javax.naming.Context;
@@ -19,7 +22,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.function.Supplier;
 
 /**
@@ -28,10 +33,11 @@ import java.util.function.Supplier;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    public final static String AUTHOR_DAO="authorDao";
-    public final static String BOOK_DAO="bookDao";
-    public final static String GENRE_DAO="genreDao";
-    public final static String USER_DAO="userDao";
+    public final static String AUTHOR_DAO = "authorDao";
+    public final static String BOOK_DAO = "bookDao";
+    public final static String GENRE_DAO = "genreDao";
+    public final static String USER_DAO = "userDao";
+
     @Override
 
     public void contextInitialized(ServletContextEvent sce) {
@@ -50,16 +56,16 @@ public class Initializer implements ServletContextListener {
             servletContext.setAttribute("bookDao", bookDao);
             servletContext.setAttribute("genreDao", genreDao);
             servletContext.setAttribute("userDao", userDao);
-
-        }catch (Exception e){
+           // initDB();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private Supplier<Connection> getConnectionSupplier() throws NamingException {
-        Context initContext=new InitialContext();
-        Context envContext=(Context)initContext.lookup("java:/comp/env");
-        DataSource dataSource=(DataSource)envContext.lookup("jdbc/myDb");
+        Context initContext = new InitialContext();
+        Context envContext = (Context) initContext.lookup("java:/comp/env");
+        DataSource dataSource = (DataSource) envContext.lookup("jdbc/myDb");
         return () -> {
             try {
                 return dataSource.getConnection();
@@ -68,6 +74,21 @@ public class Initializer implements ServletContextListener {
                 throw new RuntimeException(e);
             }
         };
+    }
+
+    @SneakyThrows
+    private void initDB() {
+        Connection connection = getConnectionSupplier().get();
+        try (ResultSet resultSet = connection.createStatement().executeQuery("SELECT password,email FROM USERS");
+             Statement statement = connection.createStatement()) {
+            while (resultSet.next()) {
+                String email = resultSet.getString("email");
+                String pass = resultSet.getString("password");
+                statement.addBatch("UPDATE USERS SET password='" + StringEncryptUtil.encrypt(pass) + "' WHERE email=" + "'" + email + "'");
+            }
+            statement.executeBatch();
+        }
+
     }
 
 }

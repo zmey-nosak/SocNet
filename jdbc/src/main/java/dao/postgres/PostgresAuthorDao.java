@@ -49,20 +49,6 @@ public class PostgresAuthorDao implements AuthorDao {
 
     @SneakyThrows
     @Override
-    public int countAuthorsRecords() {
-        try (Connection connection = connectionSupplier.get();
-             PreparedStatement statement = connection.prepareStatement("SELECT COUNT(1) as cnt FROM AUTHORS")) {
-            try (
-                    ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("cnt");
-                } else return 0;
-            }
-        }
-    }
-
-    @SneakyThrows
-    @Override
     public Author getById(int authorId) {
         ArrayList<Author> authors = new ArrayList<>();
         try (Connection connection = connectionSupplier.get();

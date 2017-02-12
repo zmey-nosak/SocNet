@@ -18,7 +18,7 @@
 <script>
     function init() {
         var authors = new Authors(<%=request.getAttribute("offset")%>);
-        authors.fillTable("authorTable",10);
+        authors.fillTable("authorTable", 10);
     }
 </script>
 <body background=/images/index.gif style="color:#FF9E26" onload="init()">
@@ -30,6 +30,6 @@
     <th>Автор</th>
     <th>Дата рождения</th>
 </table>
-<div id="links"></div>
+<div id="page_panel2"></div>
 </body>
 </html>

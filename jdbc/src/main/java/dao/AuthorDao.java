@@ -13,7 +13,6 @@ import java.util.Optional;
 
 public interface AuthorDao {
     ArrayList<Author> getAll();
-    int countAuthorsRecords();
     Author getById(int authorId);
     Response<Author> getAll(int limit, int offset);
 }

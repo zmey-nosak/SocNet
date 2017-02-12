@@ -5,11 +5,13 @@ import model.User;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import util.StringEncryptUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Echetik on 24.01.2017.
@@ -48,6 +50,9 @@ public class RegisterCommand implements Command {
         if (!confPSW.equals(pass)) {
             messages += "Password and confirm password are not equal<br/>";
         }
+        if (pass.length() < 5) {
+            messages += "Password cant be less then 5 symbols";
+        }
         try {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("d.MM.yyyy");
             formatter = formatter.withLocale(request.getLocale());  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
@@ -57,7 +62,11 @@ public class RegisterCommand implements Command {
             messages += "Date is not valid.<br\\>";
         }
         if (messages.isEmpty()) {
-            user.setPassword(pass);
+            try {
+                user.setPassword(StringEncryptUtil.encrypt(pass));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
             int userId = registerLogic.registerUser(user);
             User registeredUser = registerLogic.getRegisteredUser(userId);
             request.getSession().setAttribute("user", registeredUser);

@@ -14,7 +14,7 @@
         }
     </style>
     <title>Login</title></head>
-<body><h3><a class="a" href="login.jsp">Login</a> <a class="a" href="register2.jsp">Registration</a></h3>
+<body><h3><a class="a" href="login.jsp">Login</a> | <a class="a" href="register2.jsp">Registration</a></h3>
 <hr/>
 <form name="loginForm" method="POST"
       action="controller">
